@@ -1,0 +1,234 @@
+{
+  "workforceOverview": {
+    "totalEmployees": 1247,
+    "totalEmployeesTrend": "↑ 5.2% from last month",
+    "newHires": 23,
+    "newHiresTrend": "↑ 8 more than last month",
+    "resignations": 7,
+    "resignationsTrend": "↓ 3 less than last month",
+    "totalDepartments": 18,
+    "departmentsTrend": "→ No change",
+    "activeEmployees": 1198,
+    "inactiveEmployees": 49,
+    "onLeaveToday": 34,
+    "onLeaveTodayPercentage": "2.7% of workforce"
+  },
+  "attendanceSummary": {
+    "today": {
+      "present": 1089,
+      "presentPercentage": 91,
+      "absent": 41,
+      "absentPercentage": 3.4,
+      "lateArrivals": 28,
+      "lateArrivalsPercentage": 2.3,
+      "workFromHome": 55,
+      "workFromHomePercentage": 4.6
+    },
+    "monthlyAttendance": 94.2,
+    "overtimeHours": 342,
+    "lowAttendanceEmployees": [
+      {
+        "name": "John Doe",
+        "attendance": 68
+      },
+      {
+        "name": "Jane Smith",
+        "attendance": 72
+      },
+      {
+        "name": "Mike Johnson",
+        "attendance": 75
+      }
+    ]
+  },
+  "leaveManagement": {
+    "pendingRequests": 17,
+    "approvedThisMonth": 142,
+    "rejectedThisMonth": 8,
+    "avgLeaveBalance": 12.5,
+    "recentRequests": [
+      {
+        "employee": "Sarah Williams",
+        "type": "Sick Leave",
+        "duration": "2 days",
+        "status": "pending"
+      },
+      {
+        "employee": "Robert Brown",
+        "type": "Vacation",
+        "duration": "5 days",
+        "status": "approved"
+      },
+      {
+        "employee": "Emily Davis",
+        "type": "Personal",
+        "duration": "1 day",
+        "status": "pending"
+      },
+      {
+        "employee": "Michael Chen",
+        "type": "Vacation",
+        "duration": "3 days",
+        "status": "approved"
+      },
+      {
+        "employee": "Lisa Anderson",
+        "type": "Sick Leave",
+        "duration": "1 day",
+        "status": "rejected"
+      }
+    ],
+    "alerts": [
+      "3 leaves overlap with project deadlines",
+      "Marketing team has 5 employees on leave next week"
+    ]
+  },
+  "payrollOverview": {
+    "totalExpense": "$2.4M",
+    "processed": 1198,
+    "pending": 49,
+    "pendingReimbursements": "$24.5K",
+    "salaryBreakdown": [
+      {
+        "category": "Base Salary",
+        "amount": "$1.8M",
+        "percentage": 75
+      },
+      {
+        "category": "Bonuses & Incentives",
+        "amount": "$360K",
+        "percentage": 15
+      },
+      {
+        "category": "Benefits & Allowances",
+        "amount": "$240K",
+        "percentage": 10
+      }
+    ],
+    "pfEsiTax": {
+      "pf": "$180K",
+      "esi": "$45K",
+      "tax": "$320K"
+    },
+    "alerts": [
+      "12 employees with incomplete bank details",
+      "5 tax deduction errors found"
+    ]
+  },
+  "recruitmentSnapshot": {
+    "openPositions": 28,
+    "candidatesInPipeline": 156,
+    "interviewsToday": 9,
+    "offersReleased": 12,
+    "offersDeclined": 3,
+    "positions": [
+      {
+        "title": "Senior Developer",
+        "department": "Engineering",
+        "candidates": 23,
+        "status": "active"
+      },
+      {
+        "title": "HR Manager",
+        "department": "HR",
+        "candidates": 15,
+        "status": "final_round"
+      },
+      {
+        "title": "Marketing Lead",
+        "department": "Marketing",
+        "candidates": 31,
+        "status": "screening"
+      },
+      {
+        "title": "Product Designer",
+        "department": "Design",
+        "candidates": 18,
+        "status": "active"
+      },
+      {
+        "title": "Sales Executive",
+        "department": "Sales",
+        "candidates": 27,
+        "status": "active"
+      }
+    ],
+    "insights": [
+      "3 offers declined this week",
+      "Average time-to-hire: 28 days"
+    ]
+  },
+  "performanceManagement": {
+    "ongoingAppraisals": 234,
+    "topPerformers": 87,
+    "underReview": 12,
+    "avgRating": 4.2,
+    "topPerformersList": [
+      {
+        "name": "Alex Thompson",
+        "department": "Engineering",
+        "rating": 5
+      },
+      {
+        "name": "Maria Garcia",
+        "department": "Sales",
+        "rating": 5
+      },
+      {
+        "name": "David Lee",
+        "department": "Marketing",
+        "rating": 5
+      },
+      {
+        "name": "Sophie Chen",
+        "department": "Product",
+        "rating": 4.9
+      }
+    ],
+    "departmentPerformance": [
+      {
+        "department": "Engineering",
+        "avgRating": 4.5,
+        "employees": 342
+      },
+      {
+        "department": "Sales",
+        "avgRating": 4.3,
+        "employees": 156
+      },
+      {
+        "department": "Marketing",
+        "avgRating": 4.1,
+        "employees": 89
+      }
+    ]
+  },
+  "complianceAlerts": {
+    "expiringContracts": {
+      "next30Days": 15,
+      "expired": 3
+    },
+    "missingDocuments": {
+      "panCard": 23,
+      "aadharCard": 18,
+      "kycIncomplete": 9
+    },
+    "probationEnding": {
+      "thisMonth": 12,
+      "reviewPending": 7
+    },
+    "policyUpdates": {
+      "new": 3,
+      "requiresAcknowledgment": true
+    },
+    "userRoles": {
+      "admin": 5,
+      "manager": 42,
+      "employee": 1200
+    },
+    "dataBackup": {
+      "status": "active",
+      "lastBackup": "2 hours ago"
+    }
+  }
+}
