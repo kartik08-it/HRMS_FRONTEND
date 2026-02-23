@@ -1,6 +1,4 @@
-import React from 'react';
 import dashboardData from './dashboardData.json';
-import Sidebar from '../../components/layout/Sidebar/sidebarLayout';
 
 export default function Dashboard() {
   const {
@@ -22,7 +20,7 @@ export default function Dashboard() {
       final_round: 'bg-purple-100 text-purple-800 border-purple-300',
       screening: 'bg-indigo-100 text-indigo-800 border-indigo-300'
     };
-   'bg-gray-100 text-gray-800 border-gray-300';
+    'bg-gray-100 text-gray-800 border-gray-300';
   };
 
   const renderStars = (rating: number) => {
@@ -40,36 +38,8 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 p-8">
-        {/* <Sidebar activePage={''} onPageChange={function (page: string): void {
-              throw new Error('Function not implemented.');
-          } }/> */}
-      <div className="max-w-[1800px] mx-auto space-y-8">
-        
-        {/* Hero Title Section */}
-        {/* <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 p-12 shadow-2xl">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
-          <div className="relative">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-4xl">
-                🏢
-              </div>
-              <div>
-                <h1 className="text-5xl font-black text-white tracking-tight">HRMS Dashboard</h1>
-                <p className="text-blue-100 text-lg mt-1 font-medium">Real-time Workforce Analytics & Management</p>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-6">
-              <div className="px-5 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-semibold border border-white/30">
-                Live Data
-              </div>
-              <div className="px-5 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-semibold border border-white/30">
-                Updated 5 mins ago
-              </div>
-            </div>
-          </div>
-        </div> */}
 
-        {/* Workforce Overview KPIs */}
+      <div className="max-w-[1800px] mx-auto space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5">
           {[
             { icon: '👥', label: 'Total Employees', value: workforceOverview.totalEmployees, trend: workforceOverview.totalEmployeesTrend, color: 'from-blue-500 to-blue-600' },
@@ -79,11 +49,11 @@ export default function Dashboard() {
             { icon: '📍', label: 'Active Employees', value: workforceOverview.activeEmployees, trend: `Inactive: ${workforceOverview.inactiveEmployees}`, color: 'from-teal-500 to-teal-600' },
             { icon: '🕒', label: 'On Leave Today', value: workforceOverview.onLeaveToday, trend: workforceOverview.onLeaveTodayPercentage, color: 'from-amber-500 to-amber-600' }
           ].map((kpi, idx) => (
-            <div key={idx} className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
-              <div className={`absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r ${kpi.color}`}></div>
-              <div className="text-4xl mb-3">{kpi.icon}</div>
+            <div key={idx} className="group relative bg-white rounded-2xl p-4 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
+              <div className={`absolute top-0 left-0 h-full w-1.5 bg-gradient-to-b ${kpi.color}`}></div>
+              <div className="text-2xl mb-3">{kpi.icon}</div>
               <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">{kpi.label}</div>
-              <div className="text-4xl font-black text-gray-900 mb-2">{kpi.value.toLocaleString()}</div>
+              <div className="text-3xl font-black text-gray-900 mb-2">{kpi.value.toLocaleString()}</div>
               <div className="text-xs text-gray-600 font-medium">{kpi.trend}</div>
             </div>
           ))}
@@ -151,7 +121,7 @@ export default function Dashboard() {
 
         {/* Leave Management & Payroll Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+
           {/* Leave Management */}
           <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
             <div className="flex items-center gap-3 mb-8">
@@ -267,7 +237,7 @@ export default function Dashboard() {
 
         {/* Recruitment & Performance Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+
           {/* Recruitment Snapshot */}
           <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
             <div className="flex items-center gap-3 mb-8">
