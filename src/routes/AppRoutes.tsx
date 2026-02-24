@@ -5,13 +5,15 @@ import EmployeeList from "../pages/employees/EmployeeList";
 import ProtectedRoute from "../ProtectedRoute";
 import Layout from "../components/layout/Layout/layout";
 import AttendancePage from "../pages/attendance/attendance";
+import LeaveManagementPage from "../pages/leaveManagement/LeaveManagement";
+import RecruitmentPage from "../pages/recruitment/Recruitment";
+import PayrollPage from "../pages/payroll/Payroll";
 
 const AppRoutes = () => {
   const isAuthenticated = localStorage.getItem("auth");
 
   return (
     <Routes>
-      {/* Default Route */}
       <Route
         path="/"
         element={
@@ -23,10 +25,8 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Public Route */}
       <Route path="/login" element={<LoginPage />} />
 
-      {/* Protected Layout Wrapper */}
       <Route
         element={
           <ProtectedRoute>
@@ -37,9 +37,11 @@ const AppRoutes = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/employees" element={<EmployeeList />} />
         <Route path="/attendance" element={<AttendancePage />} />
+        <Route path="/leave" element={<LeaveManagementPage />} />
+        <Route path="/recruitment" element={<RecruitmentPage />} />
+        <Route path="/payroll" element={<PayrollPage />} />
       </Route>
 
-      {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

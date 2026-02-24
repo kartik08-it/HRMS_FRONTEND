@@ -1,0 +1,447 @@
+{
+  "payrollSummary": {
+    "totalEmployees": 1247,
+    "processedPayroll": 1198,
+    "pendingPayroll": 49,
+    "totalExpense": 2450000,
+    "thisMonthExpense": 2450000,
+    "lastMonthExpense": 2380000,
+    "avgSalary": 2046,
+    "pendingReimbursements": 24500,
+    "bonusPaid": 145000,
+    "overtimePaid": 32000
+  },
+  "processStatus": {
+    "status": "in_progress",
+    "stage": "tax_calculation",
+    "progress": 67,
+    "startedAt": "2024-02-20 09:00 AM",
+    "estimatedCompletion": "2024-02-25 05:00 PM",
+    "processedCount": 1198,
+    "pendingCount": 49,
+    "errorCount": 12
+  },
+  "salaryBreakdown": [
+    {
+      "category": "Base Salary",
+      "amount": 1800000,
+      "percentage": 73.5,
+      "color": "blue"
+    },
+    {
+      "category": "Allowances",
+      "amount": 245000,
+      "percentage": 10,
+      "color": "emerald"
+    },
+    {
+      "category": "Bonuses & Incentives",
+      "amount": 245000,
+      "percentage": 10,
+      "color": "purple"
+    },
+    {
+      "category": "Overtime",
+      "amount": 98000,
+      "percentage": 4,
+      "color": "amber"
+    },
+    {
+      "category": "Other Benefits",
+      "amount": 62000,
+      "percentage": 2.5,
+      "color": "pink"
+    }
+  ],
+  "deductions": {
+    "totalDeductions": 645000,
+    "breakdown": [
+      {
+        "type": "Income Tax (TDS)",
+        "amount": 320000,
+        "percentage": 49.6,
+        "color": "rose"
+      },
+      {
+        "type": "Provident Fund (PF)",
+        "amount": 180000,
+        "percentage": 27.9,
+        "color": "blue"
+      },
+      {
+        "type": "Professional Tax",
+        "amount": 25000,
+        "percentage": 3.9,
+        "color": "purple"
+      },
+      {
+        "type": "ESI",
+        "amount": 45000,
+        "percentage": 7,
+        "color": "cyan"
+      },
+      {
+        "type": "Loan Deductions",
+        "amount": 52000,
+        "percentage": 8.1,
+        "color": "amber"
+      },
+      {
+        "type": "Other Deductions",
+        "amount": 23000,
+        "percentage": 3.6,
+        "color": "gray"
+      }
+    ]
+  },
+  "employeePayroll": [
+    {
+      "id": "EMP001",
+      "employeeName": "Rajesh Kumar",
+      "department": "Engineering",
+      "designation": "Senior Developer",
+      "employeeId": "EMP001",
+      "baseSalary": 95000,
+      "allowances": 12000,
+      "bonus": 8000,
+      "overtime": 2500,
+      "grossSalary": 117500,
+      "taxDeduction": 18500,
+      "pfDeduction": 11400,
+      "otherDeductions": 1200,
+      "totalDeductions": 31100,
+      "netSalary": 86400,
+      "status": "processed",
+      "processedDate": "2024-02-22",
+      "paymentMode": "Bank Transfer",
+      "bankAccount": "****6789"
+    },
+    {
+      "id": "EMP002",
+      "employeeName": "Priya Sharma",
+      "department": "Sales",
+      "designation": "Sales Manager",
+      "employeeId": "EMP002",
+      "baseSalary": 85000,
+      "allowances": 10000,
+      "bonus": 15000,
+      "overtime": 0,
+      "grossSalary": 110000,
+      "taxDeduction": 16500,
+      "pfDeduction": 10200,
+      "otherDeductions": 800,
+      "totalDeductions": 27500,
+      "netSalary": 82500,
+      "status": "processed",
+      "processedDate": "2024-02-22",
+      "paymentMode": "Bank Transfer",
+      "bankAccount": "****4523"
+    },
+    {
+      "id": "EMP003",
+      "employeeName": "Amit Patel",
+      "department": "Marketing",
+      "designation": "Marketing Executive",
+      "employeeId": "EMP003",
+      "baseSalary": 55000,
+      "allowances": 6000,
+      "bonus": 3000,
+      "overtime": 1200,
+      "grossSalary": 65200,
+      "taxDeduction": 8500,
+      "pfDeduction": 6600,
+      "otherDeductions": 600,
+      "totalDeductions": 15700,
+      "netSalary": 49500,
+      "status": "pending",
+      "processedDate": null,
+      "paymentMode": "Bank Transfer",
+      "bankAccount": "****8901"
+    },
+    {
+      "id": "EMP004",
+      "employeeName": "Sneha Reddy",
+      "department": "HR",
+      "designation": "HR Manager",
+      "employeeId": "EMP004",
+      "baseSalary": 75000,
+      "allowances": 8500,
+      "bonus": 5000,
+      "overtime": 0,
+      "grossSalary": 88500,
+      "taxDeduction": 12800,
+      "pfDeduction": 9000,
+      "otherDeductions": 0,
+      "totalDeductions": 21800,
+      "netSalary": 66700,
+      "status": "error",
+      "processedDate": null,
+      "paymentMode": "Bank Transfer",
+      "bankAccount": "****incomplete",
+      "errorReason": "Incomplete bank details"
+    }
+  ],
+  "departmentWiseExpense": [
+    {
+      "department": "Engineering",
+      "employees": 342,
+      "totalSalary": 890000,
+      "avgSalary": 2602,
+      "lastMonth": 875000,
+      "changePercent": 1.7,
+      "budgetAllocated": 950000,
+      "budgetUsed": 93.7
+    },
+    {
+      "department": "Sales",
+      "employees": 156,
+      "totalSalary": 445000,
+      "avgSalary": 2853,
+      "lastMonth": 432000,
+      "changePercent": 3.0,
+      "budgetAllocated": 480000,
+      "budgetUsed": 92.7
+    },
+    {
+      "department": "Marketing",
+      "employees": 89,
+      "totalSalary": 245000,
+      "avgSalary": 2753,
+      "lastMonth": 238000,
+      "changePercent": 2.9,
+      "budgetAllocated": 270000,
+      "budgetUsed": 90.7
+    },
+    {
+      "department": "Product",
+      "employees": 67,
+      "totalSalary": 198000,
+      "avgSalary": 2955,
+      "lastMonth": 195000,
+      "changePercent": 1.5,
+      "budgetAllocated": 220000,
+      "budgetUsed": 90.0
+    },
+    {
+      "department": "HR",
+      "employees": 45,
+      "totalSalary": 125000,
+      "avgSalary": 2778,
+      "lastMonth": 122000,
+      "changePercent": 2.5,
+      "budgetAllocated": 140000,
+      "budgetUsed": 89.3
+    },
+    {
+      "department": "Finance",
+      "employees": 72,
+      "totalSalary": 215000,
+      "avgSalary": 2986,
+      "lastMonth": 210000,
+      "changePercent": 2.4,
+      "budgetAllocated": 240000,
+      "budgetUsed": 89.6
+    },
+    {
+      "department": "Operations",
+      "employees": 200,
+      "totalSalary": 332000,
+      "avgSalary": 1660,
+      "lastMonth": 308000,
+      "changePercent": 7.8,
+      "budgetAllocated": 350000,
+      "budgetUsed": 94.9
+    }
+  ],
+  "reimbursements": [
+    {
+      "id": "REIMB001",
+      "employeeName": "Vikram Singh",
+      "employeeId": "EMP045",
+      "department": "Sales",
+      "type": "Travel",
+      "amount": 4500,
+      "submittedDate": "2024-02-18",
+      "status": "pending",
+      "description": "Client meeting travel - Mumbai"
+    },
+    {
+      "id": "REIMB002",
+      "employeeName": "Anjali Mehta",
+      "employeeId": "EMP089",
+      "department": "Marketing",
+      "type": "Food & Entertainment",
+      "amount": 2800,
+      "submittedDate": "2024-02-19",
+      "status": "pending",
+      "description": "Client dinner"
+    },
+    {
+      "id": "REIMB003",
+      "employeeName": "Rahul Gupta",
+      "employeeId": "EMP123",
+      "department": "Engineering",
+      "type": "Equipment",
+      "amount": 8500,
+      "submittedDate": "2024-02-20",
+      "status": "approved",
+      "approvedDate": "2024-02-22",
+      "description": "Laptop accessories"
+    },
+    {
+      "id": "REIMB004",
+      "employeeName": "Kavya Iyer",
+      "employeeId": "EMP156",
+      "department": "Product",
+      "type": "Internet",
+      "amount": 1500,
+      "submittedDate": "2024-02-15",
+      "status": "paid",
+      "approvedDate": "2024-02-18",
+      "paidDate": "2024-02-22",
+      "description": "Monthly internet reimbursement"
+    }
+  ],
+  "payrollErrors": [
+    {
+      "id": "ERR001",
+      "employeeName": "Sneha Reddy",
+      "employeeId": "EMP004",
+      "department": "HR",
+      "errorType": "Missing Bank Details",
+      "severity": "high",
+      "description": "Incomplete bank account information",
+      "detectedDate": "2024-02-22"
+    },
+    {
+      "id": "ERR002",
+      "employeeName": "Arjun Nair",
+      "employeeId": "EMP067",
+      "department": "Engineering",
+      "errorType": "Tax Calculation Error",
+      "severity": "medium",
+      "description": "Invalid tax regime selection",
+      "detectedDate": "2024-02-22"
+    },
+    {
+      "id": "ERR003",
+      "employeeName": "Pooja Desai",
+      "employeeId": "EMP098",
+      "department": "Sales",
+      "errorType": "Duplicate Entry",
+      "severity": "high",
+      "description": "Salary processed twice",
+      "detectedDate": "2024-02-23"
+    }
+  ],
+  "complianceTracking": {
+    "pfCompliance": {
+      "status": "compliant",
+      "lastFiled": "2024-01-31",
+      "nextDue": "2024-02-28",
+      "amount": 180000
+    },
+    "esiCompliance": {
+      "status": "compliant",
+      "lastFiled": "2024-01-31",
+      "nextDue": "2024-02-28",
+      "amount": 45000
+    },
+    "tdsCompliance": {
+      "status": "pending",
+      "lastFiled": "2023-12-31",
+      "nextDue": "2024-03-31",
+      "amount": 320000
+    },
+    "professionalTax": {
+      "status": "compliant",
+      "lastFiled": "2024-01-31",
+      "nextDue": "2024-02-28",
+      "amount": 25000
+    }
+  },
+  "bonusAllocation": [
+    {
+      "department": "Engineering",
+      "totalBonus": 52000,
+      "employees": 89,
+      "avgBonus": 584
+    },
+    {
+      "department": "Sales",
+      "totalBonus": 48000,
+      "employees": 34,
+      "avgBonus": 1412
+    },
+    {
+      "department": "Marketing",
+      "totalBonus": 18000,
+      "employees": 23,
+      "avgBonus": 783
+    },
+    {
+      "department": "Product",
+      "totalBonus": 15000,
+      "employees": 18,
+      "avgBonus": 833
+    },
+    {
+      "department": "HR",
+      "totalBonus": 8000,
+      "employees": 12,
+      "avgBonus": 667
+    },
+    {
+      "department": "Operations",
+      "totalBonus": 4000,
+      "employees": 28,
+      "avgBonus": 143
+    }
+  ],
+  "salaryBands": [
+    {
+      "band": "$0 - $30K",
+      "employees": 234,
+      "percentage": 18.8,
+      "totalCost": 562000
+    },
+    {
+      "band": "$30K - $60K",
+      "employees": 456,
+      "percentage": 36.6,
+      "totalCost": 1980000
+    },
+    {
+      "band": "$60K - $90K",
+      "employees": 342,
+      "percentage": 27.4,
+      "totalCost": 2560000
+    },
+    {
+      "band": "$90K - $120K",
+      "employees": 156,
+      "percentage": 12.5,
+      "totalCost": 1650000
+    },
+    {
+      "band": "$120K+",
+      "employees": 59,
+      "percentage": 4.7,
+      "totalCost": 890000
+    }
+  ],
+  "paymentSchedule": {
+    "salaryDate": "Last working day of month",
+    "nextPayday": "2024-02-29",
+    "advanceRequests": 8,
+    "advanceAmount": 45000
+  },
+  "ytdSummary": {
+    "totalPaid": 28450000,
+    "totalTax": 3850000,
+    "totalPF": 2160000,
+    "totalESI": 540000,
+    "avgMonthlyExpense": 2371000,
+    "projectedYearly": 29400000
+  }
+}

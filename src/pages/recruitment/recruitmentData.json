@@ -1,0 +1,425 @@
+{
+  "recruitmentSummary": {
+    "openPositions": 28,
+    "totalCandidates": 456,
+    "interviewsScheduled": 45,
+    "interviewsToday": 9,
+    "offersReleased": 12,
+    "offersAccepted": 9,
+    "offersDeclined": 3,
+    "onboarding": 6,
+    "avgTimeToHire": 28,
+    "avgCostPerHire": 4500,
+    "acceptanceRate": 75
+  },
+  "pipelineStages": [
+    {
+      "stage": "Applied",
+      "count": 456,
+      "percentage": 100,
+      "color": "blue"
+    },
+    {
+      "stage": "Screening",
+      "count": 234,
+      "percentage": 51.3,
+      "color": "cyan"
+    },
+    {
+      "stage": "Phone Interview",
+      "count": 123,
+      "percentage": 27,
+      "color": "indigo"
+    },
+    {
+      "stage": "Technical Round",
+      "count": 67,
+      "percentage": 14.7,
+      "color": "purple"
+    },
+    {
+      "stage": "HR Round",
+      "count": 34,
+      "percentage": 7.5,
+      "color": "pink"
+    },
+    {
+      "stage": "Final Round",
+      "count": 18,
+      "percentage": 3.9,
+      "color": "emerald"
+    },
+    {
+      "stage": "Offer",
+      "count": 12,
+      "percentage": 2.6,
+      "color": "green"
+    }
+  ],
+  "openPositions": [
+    {
+      "id": "JOB001",
+      "title": "Senior Full Stack Developer",
+      "department": "Engineering",
+      "location": "Bangalore",
+      "type": "Full-time",
+      "experience": "5-8 years",
+      "openings": 3,
+      "candidates": 45,
+      "status": "active",
+      "priority": "high",
+      "postedDate": "2024-01-15",
+      "closingDate": "2024-03-15",
+      "hiringManager": "John Smith",
+      "budget": "$80,000 - $120,000"
+    },
+    {
+      "id": "JOB002",
+      "title": "Product Manager",
+      "department": "Product",
+      "location": "Remote",
+      "type": "Full-time",
+      "experience": "4-6 years",
+      "openings": 2,
+      "candidates": 67,
+      "status": "active",
+      "priority": "high",
+      "postedDate": "2024-01-20",
+      "closingDate": "2024-03-20",
+      "hiringManager": "Sarah Johnson",
+      "budget": "$90,000 - $130,000"
+    },
+    {
+      "id": "JOB003",
+      "title": "Senior Data Scientist",
+      "department": "Data Analytics",
+      "location": "Hyderabad",
+      "type": "Full-time",
+      "experience": "6-9 years",
+      "openings": 2,
+      "candidates": 38,
+      "status": "active",
+      "priority": "high",
+      "postedDate": "2024-01-25",
+      "closingDate": "2024-03-25",
+      "hiringManager": "Mike Chen",
+      "budget": "$95,000 - $140,000"
+    },
+    {
+      "id": "JOB004",
+      "title": "UI/UX Designer",
+      "department": "Design",
+      "location": "Mumbai",
+      "type": "Full-time",
+      "experience": "3-5 years",
+      "openings": 1,
+      "candidates": 52,
+      "status": "active",
+      "priority": "medium",
+      "postedDate": "2024-02-01",
+      "closingDate": "2024-03-30",
+      "hiringManager": "Emily Davis",
+      "budget": "$60,000 - $90,000"
+    },
+    {
+      "id": "JOB005",
+      "title": "DevOps Engineer",
+      "department": "Engineering",
+      "location": "Pune",
+      "type": "Full-time",
+      "experience": "4-7 years",
+      "openings": 2,
+      "candidates": 41,
+      "status": "active",
+      "priority": "high",
+      "postedDate": "2024-02-05",
+      "closingDate": "2024-04-05",
+      "hiringManager": "John Smith",
+      "budget": "$75,000 - $110,000"
+    },
+    {
+      "id": "JOB006",
+      "title": "Sales Executive",
+      "department": "Sales",
+      "location": "Delhi",
+      "type": "Full-time",
+      "experience": "2-4 years",
+      "openings": 5,
+      "candidates": 89,
+      "status": "active",
+      "priority": "medium",
+      "postedDate": "2024-02-10",
+      "closingDate": "2024-04-10",
+      "hiringManager": "Robert Williams",
+      "budget": "$50,000 - $70,000"
+    }
+  ],
+  "interviewsToday": [
+    {
+      "id": "INT001",
+      "candidateName": "Rahul Sharma",
+      "position": "Senior Full Stack Developer",
+      "time": "10:00 AM",
+      "interviewer": "John Smith",
+      "round": "Technical Round",
+      "mode": "Video Call",
+      "status": "scheduled"
+    },
+    {
+      "id": "INT002",
+      "candidateName": "Priya Patel",
+      "position": "Product Manager",
+      "time": "11:30 AM",
+      "interviewer": "Sarah Johnson",
+      "round": "HR Round",
+      "mode": "In-person",
+      "status": "scheduled"
+    },
+    {
+      "id": "INT003",
+      "candidateName": "Amit Kumar",
+      "position": "Senior Data Scientist",
+      "time": "02:00 PM",
+      "interviewer": "Mike Chen",
+      "round": "Technical Round",
+      "mode": "Video Call",
+      "status": "scheduled"
+    },
+    {
+      "id": "INT004",
+      "candidateName": "Sneha Reddy",
+      "position": "UI/UX Designer",
+      "time": "03:30 PM",
+      "interviewer": "Emily Davis",
+      "round": "Portfolio Review",
+      "mode": "Video Call",
+      "status": "scheduled"
+    },
+    {
+      "id": "INT005",
+      "candidateName": "Vikram Singh",
+      "position": "DevOps Engineer",
+      "time": "04:30 PM",
+      "interviewer": "John Smith",
+      "round": "Final Round",
+      "mode": "In-person",
+      "status": "scheduled"
+    }
+  ],
+  "recentApplications": [
+    {
+      "id": "APP001",
+      "candidateName": "Arjun Mehta",
+      "email": "arjun.mehta@email.com",
+      "phone": "+91-9876543210",
+      "position": "Senior Full Stack Developer",
+      "experience": "6 years",
+      "currentCompany": "Tech Corp",
+      "expectedSalary": "$95,000",
+      "noticePeriod": "2 months",
+      "appliedDate": "2024-02-24",
+      "status": "new",
+      "resumeScore": 85,
+      "skills": ["React", "Node.js", "AWS", "MongoDB"]
+    },
+    {
+      "id": "APP002",
+      "candidateName": "Kavya Iyer",
+      "email": "kavya.iyer@email.com",
+      "phone": "+91-9876543211",
+      "position": "Product Manager",
+      "experience": "5 years",
+      "currentCompany": "Startup Inc",
+      "expectedSalary": "$105,000",
+      "noticePeriod": "1 month",
+      "appliedDate": "2024-02-23",
+      "status": "screening",
+      "resumeScore": 92,
+      "skills": ["Product Strategy", "Agile", "Analytics", "Roadmapping"]
+    },
+    {
+      "id": "APP003",
+      "candidateName": "Rohan Gupta",
+      "email": "rohan.gupta@email.com",
+      "phone": "+91-9876543212",
+      "position": "Senior Data Scientist",
+      "experience": "7 years",
+      "currentCompany": "Data Labs",
+      "expectedSalary": "$115,000",
+      "noticePeriod": "3 months",
+      "appliedDate": "2024-02-22",
+      "status": "phone_interview",
+      "resumeScore": 88,
+      "skills": ["Python", "Machine Learning", "TensorFlow", "SQL"]
+    }
+  ],
+  "offersManagement": [
+    {
+      "id": "OFF001",
+      "candidateName": "Neha Kapoor",
+      "position": "Senior Full Stack Developer",
+      "offeredSalary": "$100,000",
+      "joiningDate": "2024-04-01",
+      "offeredDate": "2024-02-20",
+      "expiryDate": "2024-03-05",
+      "status": "pending",
+      "daysRemaining": 9
+    },
+    {
+      "id": "OFF002",
+      "candidateName": "Sanjay Reddy",
+      "position": "DevOps Engineer",
+      "offeredSalary": "$90,000",
+      "joiningDate": "2024-03-25",
+      "offeredDate": "2024-02-18",
+      "expiryDate": "2024-03-03",
+      "status": "accepted",
+      "acceptedDate": "2024-02-22"
+    },
+    {
+      "id": "OFF003",
+      "candidateName": "Anjali Singh",
+      "position": "Product Manager",
+      "offeredSalary": "$110,000",
+      "joiningDate": "2024-04-10",
+      "offeredDate": "2024-02-15",
+      "expiryDate": "2024-02-28",
+      "status": "declined",
+      "declinedDate": "2024-02-26",
+      "declineReason": "Better offer elsewhere"
+    }
+  ],
+  "departmentHiring": [
+    {
+      "department": "Engineering",
+      "openPositions": 8,
+      "candidates": 156,
+      "interviewsScheduled": 23,
+      "offersOut": 4,
+      "budget": "$650,000",
+      "spent": "$380,000"
+    },
+    {
+      "department": "Sales",
+      "openPositions": 7,
+      "candidates": 134,
+      "interviewsScheduled": 12,
+      "offersOut": 3,
+      "budget": "$420,000",
+      "spent": "$245,000"
+    },
+    {
+      "department": "Product",
+      "openPositions": 4,
+      "candidates": 78,
+      "interviewsScheduled": 5,
+      "offersOut": 2,
+      "budget": "$380,000",
+      "spent": "$210,000"
+    },
+    {
+      "department": "Marketing",
+      "openPositions": 3,
+      "candidates": 45,
+      "interviewsScheduled": 3,
+      "offersOut": 1,
+      "budget": "$190,000",
+      "spent": "$95,000"
+    },
+    {
+      "department": "Design",
+      "openPositions": 2,
+      "candidates": 52,
+      "interviewsScheduled": 2,
+      "offersOut": 1,
+      "budget": "$150,000",
+      "spent": "$75,000"
+    },
+    {
+      "department": "Data Analytics",
+      "openPositions": 4,
+      "candidates": 38,
+      "interviewsScheduled": 0,
+      "offersOut": 1,
+      "budget": "$420,000",
+      "spent": "$130,000"
+    }
+  ],
+  "sourcingChannels": [
+    {
+      "channel": "LinkedIn",
+      "applications": 234,
+      "hires": 8,
+      "cost": "$12,000",
+      "conversionRate": 3.4
+    },
+    {
+      "channel": "Indeed",
+      "applications": 189,
+      "hires": 5,
+      "cost": "$8,500",
+      "conversionRate": 2.6
+    },
+    {
+      "channel": "Employee Referral",
+      "applications": 67,
+      "hires": 12,
+      "cost": "$24,000",
+      "conversionRate": 17.9
+    },
+    {
+      "channel": "Company Website",
+      "applications": 145,
+      "hires": 6,
+      "cost": "$3,200",
+      "conversionRate": 4.1
+    },
+    {
+      "channel": "Job Portals",
+      "applications": 98,
+      "hires": 4,
+      "cost": "$6,800",
+      "conversionRate": 4.1
+    },
+    {
+      "channel": "Campus Hiring",
+      "applications": 178,
+      "hires": 15,
+      "cost": "$18,000",
+      "conversionRate": 8.4
+    }
+  ],
+  "hiringTrends": {
+    "lastMonth": 18,
+    "thisMonth": 23,
+    "nextMonthProjected": 28,
+    "quarterlyTarget": 75,
+    "yearlyTarget": 280
+  },
+  "criticalVacancies": [
+    {
+      "position": "Senior Full Stack Developer",
+      "daysOpen": 45,
+      "urgency": "critical",
+      "reason": "Project delivery at risk"
+    },
+    {
+      "position": "Product Manager",
+      "daysOpen": 38,
+      "urgency": "high",
+      "reason": "Strategic initiative delayed"
+    },
+    {
+      "position": "DevOps Engineer",
+      "daysOpen": 22,
+      "urgency": "high",
+      "reason": "Infrastructure scaling needed"
+    }
+  ],
+  "interviewFeedback": {
+    "pending": 23,
+    "completed": 178,
+    "avgRating": 3.8,
+    "avgResponseTime": "2.3 days"
+  }
+}
