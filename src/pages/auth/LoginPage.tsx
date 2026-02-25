@@ -28,7 +28,7 @@ const LoginPage = () => {
 
         <div className="text-center mb-6">
           <h1 className="text-2xl font-semibold text-gray-800">Welcome</h1>
-          <p className="text-sm text-gray-500 mt-1">Sign in to your notes</p>
+          <p className="text-sm text-gray-500 mt-1">Sign in to Panel</p>
         </div>
 
         {/* Card */}

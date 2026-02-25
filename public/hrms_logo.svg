@@ -1,0 +1,32 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <rect width="256" height="256" rx="28" fill="#1a2436"></rect>
+
+  <!-- Minimal People Icon -->
+  <g fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Center Person -->
+    <circle cx="128" cy="105" r="20"></circle>
+    <path d="M85 160 C95 135, 161 135, 171 160"></path>
+
+    <!-- Left Person -->
+    <circle cx="85" cy="120" r="14"></circle>
+    <path d="M55 165 C60 150, 100 150, 105 165"></path>
+
+    <!-- Right Person -->
+    <circle cx="171" cy="120" r="14"></circle>
+    <path d="M151 165 C156 150, 196 150, 201 165"></path>
+
+  </g>
+
+  <!-- Subtle Divider Line -->
+  <line x1="70" y1="185" x2="186" y2="185" stroke="#ffffff" stroke-width="3" opacity="0.4"></line>
+
+  <!-- HRMS Text -->
+  <text x="128" y="220" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="600" fill="#ffffff" letter-spacing="2">
+    HRMS
+  </text>
+
+</svg>

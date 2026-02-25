@@ -8,6 +8,11 @@ import AttendancePage from "../pages/attendance/attendance";
 import LeaveManagementPage from "../pages/leaveManagement/LeaveManagement";
 import RecruitmentPage from "../pages/recruitment/Recruitment";
 import PayrollPage from "../pages/payroll/Payroll";
+import PerformancePage from "../pages/performance/Performance";
+import DepartmentsPage from "../pages/departments/Departments";
+import ReportsPage from "../pages/reports/Reports";
+import SettingsPage from "../pages/settings/Settings";
+import CompliancePage from "../pages/compliance/Compliance";
 
 const AppRoutes = () => {
   const isAuthenticated = localStorage.getItem("auth");
@@ -40,6 +45,11 @@ const AppRoutes = () => {
         <Route path="/leave" element={<LeaveManagementPage />} />
         <Route path="/recruitment" element={<RecruitmentPage />} />
         <Route path="/payroll" element={<PayrollPage />} />
+        <Route path="/performance" element={<PerformancePage />} />
+        <Route path="/departments" element={<DepartmentsPage />} />
+        <Route path="/reports" element={<ReportsPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/compliance" element={<CompliancePage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
