@@ -72,7 +72,7 @@ export default function AttendancePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 p-8">
       <div className="max-w-[1800px] mx-auto space-y-8">
-        
+
         {/* Page Header */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-10 shadow-2xl">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
@@ -121,11 +121,10 @@ export default function AttendancePage() {
               <button
                 key={mode}
                 onClick={() => setViewMode(mode)}
-                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${
-                  viewMode === mode
+                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${viewMode === mode
                     ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md'
                     : 'text-gray-600 hover:bg-gray-100'
-                }`}
+                  }`}
               >
                 {mode.charAt(0).toUpperCase() + mode.slice(1)}
               </button>
@@ -165,13 +164,33 @@ export default function AttendancePage() {
             { label: 'On Leave', value: attendanceData.summary.onLeave, icon: '🏖️', color: 'from-purple-500 to-purple-600' },
             { label: 'Half Day', value: attendanceData.summary.halfDay, icon: '⏱️', color: 'from-indigo-500 to-indigo-600' }
           ].map((stat, idx) => (
-            <div key={idx} className="group relative bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
-              <div className={`absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r ${stat.color} rounded-t-2xl`}></div>
-              <div className="text-3xl mb-2">{stat.icon}</div>
-              <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{stat.label}</div>
-              <div className="text-3xl font-black text-gray-900">{stat.value}</div>
-              <div className="text-xs text-gray-600 mt-1 font-semibold">
-                {calculatePercentage(stat.value, attendanceData.summary.totalEmployees)}%
+            <div
+              key={idx}
+              className="group relative bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1 overflow-hidden"
+            >
+              {/* Left Gradient Border */}
+              <div
+                className={`absolute top-0 left-0 h-full w-1.5 bg-gradient-to-b ${stat.color}`}
+              ></div>
+
+              {/* Content */}
+              <div className="pl-3"> {/* Padding added so content doesn't overlap border */}
+                <div className="text-3xl mb-2">{stat.icon}</div>
+
+                <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
+                  {stat.label}
+                </div>
+
+                <div className="text-3xl font-black text-gray-900">
+                  {stat.value}
+                </div>
+
+                <div className="text-xs text-gray-600 mt-1 font-semibold">
+                  {calculatePercentage(
+                    stat.value,
+                    attendanceData.summary.totalEmployees
+                  )}%
+                </div>
               </div>
             </div>
           ))}
@@ -198,7 +217,7 @@ export default function AttendancePage() {
                     {dept.total} total
                   </div>
                 </div>
-                
+
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-semibold text-gray-600">✅ Present</span>
@@ -210,7 +229,7 @@ export default function AttendancePage() {
                       style={{ width: `${calculatePercentage(dept.present, dept.total)}%` }}
                     ></div>
                   </div>
-                  
+
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-600">❌ Absent: <span className="font-bold text-rose-600">{dept.absent}</span></span>
                     <span className="text-gray-600">⏰ Late: <span className="font-bold text-amber-600">{dept.late}</span></span>
@@ -247,7 +266,7 @@ export default function AttendancePage() {
                   <div className="text-4xl font-black text-blue-900">{day.present}</div>
                   <div className="text-xs text-blue-700 font-semibold mt-1">Present</div>
                 </div>
-                
+
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Absent</span>
@@ -272,7 +291,7 @@ export default function AttendancePage() {
 
         {/* Late Arrivals & Absentees Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+
           {/* Late Arrivals */}
           <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
             <div className="flex items-center gap-3 mb-8">
@@ -330,11 +349,10 @@ export default function AttendancePage() {
                       <div className="font-black text-gray-900 text-lg">{person.name}</div>
                       <div className="text-sm text-gray-600 font-semibold">{person.department}</div>
                     </div>
-                    <div className={`px-4 py-2 rounded-xl font-bold text-sm ${
-                      person.approved 
-                        ? 'bg-emerald-200 text-emerald-900' 
+                    <div className={`px-4 py-2 rounded-xl font-bold text-sm ${person.approved
+                        ? 'bg-emerald-200 text-emerald-900'
                         : 'bg-rose-300 text-rose-900'
-                    }`}>
+                      }`}>
                       {person.approved ? '✓ Approved' : '⚠ Unplanned'}
                     </div>
                   </div>
