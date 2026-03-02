@@ -1,0 +1,140 @@
+{
+  "performanceSummary": {
+    "totalEmployees": 1247,
+    "underReview": 234,
+    "completed": 891,
+    "pending": 122,
+    "topPerformers": 87,
+    "needsImprovement": 45,
+    "avgRating": 4.2,
+    "avgCompletionRate": 76.3
+  },
+  "appraisalCycle": {
+    "currentCycle": "Q1 2024 Performance Review",
+    "status": "in_progress",
+    "startDate": "2024-01-01",
+    "endDate": "2024-03-31",
+    "reviewDeadline": "2024-04-15",
+    "progress": 71.5,
+    "completedReviews": 891,
+    "totalReviews": 1247,
+    "daysRemaining": 43
+  },
+  "ratingDistribution": [
+    {
+      "rating": "Outstanding (5)",
+      "count": 87,
+      "percentage": 7.0,
+      "color": "emerald"
+    },
+    {
+      "rating": "Exceeds Expectations (4.5)",
+      "count": 234,
+      "percentage": 18.8,
+      "color": "green"
+    },
+    {
+      "rating": "Meets Expectations (4)",
+      "count": 568,
+      "percentage": 45.5,
+      "color": "blue"
+    },
+    {
+      "rating": "Needs Improvement (3.5)",
+      "count": 312,
+      "percentage": 25.0,
+      "color": "amber"
+    },
+    {
+      "rating": "Unsatisfactory (3 or below)",
+      "count": 46,
+      "percentage": 3.7,
+      "color": "rose"
+    }
+  ],
+  "topPerformers": [
+    {
+      "id": "EMP001",
+      "employeeName": "Alex Thompson",
+      "employeeId": "EMP001",
+      "department": "Engineering",
+      "designation": "Senior Developer",
+      "rating": 5.0,
+      "kpiScore": 95,
+      "goalsAchieved": 12,
+      "totalGoals": 12,
+      "strengths": ["Technical Excellence", "Leadership", "Innovation"],
+      "achievements": [
+        "Led successful migration to microservices",
+        "Mentored 5 junior developers",
+        "Reduced system downtime by 40%"
+      ],
+      "manager": "John Smith",
+      "lastReviewDate": "2024-02-20"
+    },
+    {
+      "id": "EMP002",
+      "employeeName": "Maria Garcia",
+      "employeeId": "EMP002",
+      "department": "Sales",
+      "designation": "Senior Sales Manager",
+      "rating": 5.0,
+      "kpiScore": 98,
+      "goalsAchieved": 10,
+      "totalGoals": 10,
+      "strengths": ["Client Relations", "Revenue Growth", "Team Leadership"],
+      "achievements": [
+        "Exceeded annual target by 35%",
+        "Acquired 25 new enterprise clients",
+        "Built high-performing sales team"
+      ],
+      "manager": "Robert Williams",
+      "lastReviewDate": "2024-02-18"
+    }
+  ],
+  "departmentPerformance": [
+    {
+      "department": "Engineering",
+      "employees": 342,
+      "avgRating": 4.5,
+      "topPerformers": 28,
+      "needsImprovement": 12,
+      "kpiAchievement": 89,
+      "goalsCompleted": 456,
+      "totalGoals": 512,
+      "trend": "up",
+      "changePercent": 5.2
+    },
+    {
+      "department": "Sales",
+      "employees": 156,
+      "avgRating": 4.3,
+      "topPerformers": 18,
+      "needsImprovement": 8,
+      "kpiAchievement": 92,
+      "goalsCompleted": 198,
+      "totalGoals": 215,
+      "trend": "up",
+      "changePercent": 8.1
+    },
+    {
+      "department": "Marketing",
+      "employees": 89,
+      "avgRating": 4.1,
+      "topPerformers": 12,
+      "needsImprovement": 6,
+      "kpiAchievement": 86,
+      "goalsCompleted": 125,
+      "totalGoals": 145,
+      "trend": "up",
+      "changePercent": 3.5
+    }
+  ],
+  "goalsOverview": {
+    "totalGoals": 1567,
+    "completed": 1198,
+    "inProgress": 289,
+    "overdue": 80,
+    "completionRate": 76.4
+  }
+}

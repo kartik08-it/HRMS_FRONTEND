@@ -1,0 +1,478 @@
+{
+  "departmentsSummary": {
+    "totalDepartments": 18,
+    "totalEmployees": 1247,
+    "totalHeadcount": 1350,
+    "vacantPositions": 103,
+    "totalBudget": 48500000,
+    "budgetUtilized": 42300000,
+    "utilizationRate": 87.2,
+    "avgTeamSize": 69
+  },
+  "departments": [
+    {
+      "id": "DEPT001",
+      "name": "Engineering",
+      "icon": "💻",
+      "head": "John Smith",
+      "headEmail": "john.smith@company.com",
+      "employees": 342,
+      "headcount": 380,
+      "vacancies": 38,
+      "budget": 12500000,
+      "budgetUsed": 11200000,
+      "budgetUtilization": 89.6,
+      "avgSalary": 95000,
+      "performanceRating": 4.5,
+      "turnoverRate": 8.2,
+      "teams": [
+        {
+          "name": "Frontend",
+          "lead": "Sarah Johnson",
+          "members": 45,
+          "projects": 12
+        },
+        {
+          "name": "Backend",
+          "lead": "Mike Chen",
+          "members": 56,
+          "projects": 15
+        },
+        {
+          "name": "DevOps",
+          "lead": "Emily Davis",
+          "members": 28,
+          "projects": 8
+        },
+        {
+          "name": "QA",
+          "lead": "Robert Williams",
+          "members": 34,
+          "projects": 18
+        },
+        {
+          "name": "Mobile",
+          "lead": "Lisa Anderson",
+          "members": 38,
+          "projects": 10
+        }
+      ],
+      "recentHires": 23,
+      "openPositions": 38,
+      "location": ["Bangalore", "Hyderabad", "Pune"],
+      "established": "2015-03-15",
+      "costCenter": "ENG-001"
+    },
+    {
+      "id": "DEPT002",
+      "name": "Sales",
+      "icon": "📈",
+      "head": "Robert Williams",
+      "headEmail": "robert.williams@company.com",
+      "employees": 156,
+      "headcount": 175,
+      "vacancies": 19,
+      "budget": 8900000,
+      "budgetUsed": 8200000,
+      "budgetUtilization": 92.1,
+      "avgSalary": 85000,
+      "performanceRating": 4.3,
+      "turnoverRate": 12.5,
+      "teams": [
+        {
+          "name": "Enterprise Sales",
+          "lead": "Maria Garcia",
+          "members": 42,
+          "projects": 25
+        },
+        {
+          "name": "SMB Sales",
+          "lead": "David Lee",
+          "members": 38,
+          "projects": 45
+        },
+        {
+          "name": "Inside Sales",
+          "lead": "Sophie Chen",
+          "members": 35,
+          "projects": 60
+        },
+        {
+          "name": "Sales Operations",
+          "lead": "Alex Thompson",
+          "members": 22,
+          "projects": 8
+        }
+      ],
+      "recentHires": 15,
+      "openPositions": 19,
+      "location": ["Delhi", "Mumbai", "Bangalore"],
+      "established": "2015-06-01",
+      "costCenter": "SAL-001"
+    },
+    {
+      "id": "DEPT003",
+      "name": "Marketing",
+      "icon": "📣",
+      "head": "Sarah Johnson",
+      "headEmail": "sarah.johnson@company.com",
+      "employees": 89,
+      "headcount": 95,
+      "vacancies": 6,
+      "budget": 6700000,
+      "budgetUsed": 6100000,
+      "budgetUtilization": 91.0,
+      "avgSalary": 72000,
+      "performanceRating": 4.1,
+      "turnoverRate": 10.3,
+      "teams": [
+        {
+          "name": "Digital Marketing",
+          "lead": "Priya Patel",
+          "members": 28,
+          "projects": 15
+        },
+        {
+          "name": "Content",
+          "lead": "Amit Kumar",
+          "members": 22,
+          "projects": 20
+        },
+        {
+          "name": "Brand",
+          "lead": "Sneha Reddy",
+          "members": 18,
+          "projects": 8
+        },
+        {
+          "name": "Events",
+          "lead": "Rahul Sharma",
+          "members": 12,
+          "projects": 12
+        }
+      ],
+      "recentHires": 8,
+      "openPositions": 6,
+      "location": ["Mumbai", "Bangalore"],
+      "established": "2016-01-10",
+      "costCenter": "MKT-001"
+    },
+    {
+      "id": "DEPT004",
+      "name": "Product",
+      "icon": "🎯",
+      "head": "Emily Davis",
+      "headEmail": "emily.davis@company.com",
+      "employees": 67,
+      "headcount": 75,
+      "vacancies": 8,
+      "budget": 5800000,
+      "budgetUsed": 5200000,
+      "budgetUtilization": 89.7,
+      "avgSalary": 98000,
+      "performanceRating": 4.4,
+      "turnoverRate": 7.8,
+      "teams": [
+        {
+          "name": "Product Management",
+          "lead": "David Lee",
+          "members": 18,
+          "projects": 12
+        },
+        {
+          "name": "UX/UI Design",
+          "lead": "Sophie Chen",
+          "members": 25,
+          "projects": 20
+        },
+        {
+          "name": "Product Analytics",
+          "lead": "Alex Thompson",
+          "members": 15,
+          "projects": 8
+        }
+      ],
+      "recentHires": 6,
+      "openPositions": 8,
+      "location": ["Bangalore", "Pune"],
+      "established": "2016-08-20",
+      "costCenter": "PRD-001"
+    },
+    {
+      "id": "DEPT005",
+      "name": "Human Resources",
+      "icon": "👥",
+      "head": "Lisa Anderson",
+      "headEmail": "lisa.anderson@company.com",
+      "employees": 45,
+      "headcount": 48,
+      "vacancies": 3,
+      "budget": 3200000,
+      "budgetUsed": 2900000,
+      "budgetUtilization": 90.6,
+      "avgSalary": 68000,
+      "performanceRating": 4.2,
+      "turnoverRate": 6.5,
+      "teams": [
+        {
+          "name": "Recruitment",
+          "lead": "Priya Patel",
+          "members": 15,
+          "projects": 8
+        },
+        {
+          "name": "HR Operations",
+          "lead": "Amit Kumar",
+          "members": 12,
+          "projects": 5
+        },
+        {
+          "name": "L&D",
+          "lead": "Sneha Reddy",
+          "members": 10,
+          "projects": 6
+        }
+      ],
+      "recentHires": 4,
+      "openPositions": 3,
+      "location": ["Bangalore", "Mumbai"],
+      "established": "2015-03-15",
+      "costCenter": "HR-001"
+    },
+    {
+      "id": "DEPT006",
+      "name": "Finance",
+      "icon": "💰",
+      "head": "Michael Chen",
+      "headEmail": "michael.chen@company.com",
+      "employees": 72,
+      "headcount": 78,
+      "vacancies": 6,
+      "budget": 4500000,
+      "budgetUsed": 4100000,
+      "budgetUtilization": 91.1,
+      "avgSalary": 82000,
+      "performanceRating": 4.3,
+      "turnoverRate": 5.2,
+      "teams": [
+        {
+          "name": "Accounting",
+          "lead": "Rahul Sharma",
+          "members": 28,
+          "projects": 6
+        },
+        {
+          "name": "FP&A",
+          "lead": "Kavya Iyer",
+          "members": 22,
+          "projects": 8
+        },
+        {
+          "name": "Treasury",
+          "lead": "Arjun Mehta",
+          "members": 12,
+          "projects": 4
+        }
+      ],
+      "recentHires": 5,
+      "openPositions": 6,
+      "location": ["Mumbai", "Bangalore"],
+      "established": "2015-03-15",
+      "costCenter": "FIN-001"
+    },
+    {
+      "id": "DEPT007",
+      "name": "Operations",
+      "icon": "⚙️",
+      "head": "Mark Director",
+      "headEmail": "mark.director@company.com",
+      "employees": 200,
+      "headcount": 220,
+      "vacancies": 20,
+      "budget": 5600000,
+      "budgetUsed": 5100000,
+      "budgetUtilization": 91.1,
+      "avgSalary": 55000,
+      "performanceRating": 3.9,
+      "turnoverRate": 15.3,
+      "teams": [
+        {
+          "name": "Customer Support",
+          "lead": "Jennifer Davis",
+          "members": 85,
+          "projects": 12
+        },
+        {
+          "name": "Logistics",
+          "lead": "Robert Brown",
+          "members": 45,
+          "projects": 8
+        },
+        {
+          "name": "Facilities",
+          "lead": "Emma Taylor",
+          "members": 35,
+          "projects": 6
+        }
+      ],
+      "recentHires": 18,
+      "openPositions": 20,
+      "location": ["All Locations"],
+      "established": "2015-04-01",
+      "costCenter": "OPS-001"
+    },
+    {
+      "id": "DEPT008",
+      "name": "Data Analytics",
+      "icon": "📊",
+      "head": "Sophie Chen",
+      "headEmail": "sophie.chen@company.com",
+      "employees": 54,
+      "headcount": 60,
+      "vacancies": 6,
+      "budget": 4200000,
+      "budgetUsed": 3800000,
+      "budgetUtilization": 90.5,
+      "avgSalary": 92000,
+      "performanceRating": 4.6,
+      "turnoverRate": 6.8,
+      "teams": [
+        {
+          "name": "Business Intelligence",
+          "lead": "Alex Thompson",
+          "members": 22,
+          "projects": 15
+        },
+        {
+          "name": "Data Engineering",
+          "lead": "Maria Garcia",
+          "members": 18,
+          "projects": 10
+        },
+        {
+          "name": "Data Science",
+          "lead": "David Lee",
+          "members": 14,
+          "projects": 8
+        }
+      ],
+      "recentHires": 7,
+      "openPositions": 6,
+      "location": ["Bangalore", "Hyderabad"],
+      "established": "2017-02-15",
+      "costCenter": "DAT-001"
+    }
+  ],
+  "budgetAllocation": [
+    {
+      "category": "Salaries & Benefits",
+      "amount": 35400000,
+      "percentage": 73.0,
+      "color": "blue"
+    },
+    {
+      "category": "Infrastructure",
+      "amount": 4850000,
+      "percentage": 10.0,
+      "color": "purple"
+    },
+    {
+      "category": "Training & Development",
+      "amount": 2425000,
+      "percentage": 5.0,
+      "color": "emerald"
+    },
+    {
+      "category": "Technology & Tools",
+      "amount": 3880000,
+      "percentage": 8.0,
+      "color": "cyan"
+    },
+    {
+      "category": "Operations",
+      "amount": 1940000,
+      "percentage": 4.0,
+      "color": "amber"
+    }
+  ],
+  "headcountTrends": {
+    "lastQuarter": 1198,
+    "thisQuarter": 1247,
+    "growth": 4.1,
+    "projectedNext": 1320,
+    "historicalData": [
+      { "period": "Q1 2023", "headcount": 1089 },
+      { "period": "Q2 2023", "headcount": 1134 },
+      { "period": "Q3 2023", "headcount": 1178 },
+      { "period": "Q4 2023", "headcount": 1198 },
+      { "period": "Q1 2024", "headcount": 1247 }
+    ]
+  },
+  "topDepartments": [
+    {
+      "name": "Engineering",
+      "metric": "Largest Team",
+      "value": 342,
+      "rank": 1
+    },
+    {
+      "name": "Data Analytics",
+      "metric": "Highest Performance",
+      "value": 4.6,
+      "rank": 1
+    },
+    {
+      "name": "Finance",
+      "metric": "Lowest Turnover",
+      "value": 5.2,
+      "rank": 1
+    },
+    {
+      "name": "Sales",
+      "metric": "Highest Budget Utilization",
+      "value": 92.1,
+      "rank": 1
+    }
+  ],
+  "organizationChart": {
+    "ceo": "James Anderson",
+    "directReports": [
+      {
+        "name": "John Smith",
+        "title": "CTO",
+        "department": "Engineering",
+        "reports": 342
+      },
+      {
+        "name": "Robert Williams",
+        "title": "Chief Sales Officer",
+        "department": "Sales",
+        "reports": 156
+      },
+      {
+        "name": "Sarah Johnson",
+        "title": "CMO",
+        "department": "Marketing",
+        "reports": 89
+      },
+      {
+        "name": "Emily Davis",
+        "title": "CPO",
+        "department": "Product",
+        "reports": 67
+      },
+      {
+        "name": "Michael Chen",
+        "title": "CFO",
+        "department": "Finance",
+        "reports": 72
+      },
+      {
+        "name": "Lisa Anderson",
+        "title": "CHRO",
+        "department": "HR",
+        "reports": 45
+      }
+    ]
+  }
+}

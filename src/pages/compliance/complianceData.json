@@ -1,0 +1,110 @@
+{
+  "complianceSummary": {
+    "totalControls": 58,
+    "compliantControls": 49,
+    "openFindings": 9,
+    "criticalRisks": 3,
+    "dueThisWeek": 7,
+    "overdueItems": 2,
+    "auditReadiness": 88,
+    "policyCoverage": 93
+  },
+  "complianceCategories": [
+    { "id": "all", "label": "All Areas" },
+    { "id": "policy", "label": "Policy" },
+    { "id": "security", "label": "Security" },
+    { "id": "legal", "label": "Legal" },
+    { "id": "training", "label": "Training" },
+    { "id": "vendor", "label": "Vendor" }
+  ],
+  "complianceItems": [
+    {
+      "id": "CMP001",
+      "title": "Policy Acknowledgement Completion",
+      "category": "policy",
+      "owner": "People Ops",
+      "framework": "ISO 27001",
+      "dueDate": "2026-03-08",
+      "status": "Pending",
+      "risk": "Medium",
+      "completion": 76
+    },
+    {
+      "id": "CMP002",
+      "title": "Background Verification Backlog",
+      "category": "security",
+      "owner": "Talent Team",
+      "framework": "SOC 2",
+      "dueDate": "2026-03-05",
+      "status": "At Risk",
+      "risk": "High",
+      "completion": 61
+    },
+    {
+      "id": "CMP003",
+      "title": "Contract Renewal Validation",
+      "category": "legal",
+      "owner": "Legal",
+      "framework": "GDPR",
+      "dueDate": "2026-03-20",
+      "status": "On Track",
+      "risk": "Low",
+      "completion": 84
+    },
+    {
+      "id": "CMP004",
+      "title": "Data Privacy Training Completion",
+      "category": "training",
+      "owner": "IT Security",
+      "framework": "GDPR",
+      "dueDate": "2026-03-12",
+      "status": "Pending",
+      "risk": "Medium",
+      "completion": 68
+    },
+    {
+      "id": "CMP005",
+      "title": "Vendor Security Questionnaire",
+      "category": "vendor",
+      "owner": "Procurement",
+      "framework": "ISO 27001",
+      "dueDate": "2026-03-15",
+      "status": "On Track",
+      "risk": "Low",
+      "completion": 88
+    },
+    {
+      "id": "CMP006",
+      "title": "Privileged Access Certification",
+      "category": "security",
+      "owner": "Access Governance",
+      "framework": "SOC 2",
+      "dueDate": "2026-03-06",
+      "status": "At Risk",
+      "risk": "High",
+      "completion": 54
+    }
+  ],
+  "riskDistribution": [
+    { "level": "High", "count": 3, "color": "rose" },
+    { "level": "Medium", "count": 4, "color": "amber" },
+    { "level": "Low", "count": 2, "color": "emerald" }
+  ],
+  "upcomingAudits": [
+    { "name": "Quarterly Access Audit", "date": "2026-03-11", "owner": "IT Security", "priority": "High" },
+    { "name": "Policy Governance Review", "date": "2026-03-18", "owner": "People Ops", "priority": "Medium" },
+    { "name": "Vendor Controls Assessment", "date": "2026-03-22", "owner": "Procurement", "priority": "Medium" },
+    { "name": "Training Evidence Validation", "date": "2026-03-28", "owner": "L&D", "priority": "Low" }
+  ],
+  "recentActivities": [
+    { "actor": "System", "action": "Detected overdue access recertification for Finance Admin role", "time": "2026-03-02 09:02 AM", "severity": "Critical" },
+    { "actor": "Neha Kapoor", "action": "Uploaded evidence for policy acknowledgement campaign", "time": "2026-03-02 08:14 AM", "severity": "Info" },
+    { "actor": "System", "action": "Background verification queue exceeded threshold", "time": "2026-03-01 05:48 PM", "severity": "Warning" },
+    { "actor": "Rahul Mehta", "action": "Closed contract compliance finding CMP003", "time": "2026-03-01 11:10 AM", "severity": "Info" }
+  ],
+  "alerts": [
+    "Two controls are overdue and require escalation before March 6, 2026.",
+    "Privileged Access Certification completion is below 60%.",
+    "Background verification backlog has grown for three consecutive days."
+  ]
+}
