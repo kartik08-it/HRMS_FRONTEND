@@ -1,0 +1,107 @@
+{
+  "settingsSummary": {
+    "totalPolicies": 26,
+    "activeIntegrations": 8,
+    "pendingApprovals": 5,
+    "securityScore": 91,
+    "rolesConfigured": 14,
+    "ssoEnabled": true,
+    "lastAuditDate": "2026-02-27",
+    "criticalAlerts": 2
+  },
+  "settingCategories": [
+    { "id": "all", "label": "All Settings" },
+    { "id": "organization", "label": "Organization" },
+    { "id": "workflow", "label": "Workflow" },
+    { "id": "security", "label": "Security" },
+    { "id": "notifications", "label": "Notifications" },
+    { "id": "integrations", "label": "Integrations" }
+  ],
+  "settingModules": [
+    {
+      "id": "SET001",
+      "title": "Organization Profile",
+      "category": "organization",
+      "description": "Manage company identity, timezone, fiscal year and business units.",
+      "owner": "People Operations",
+      "status": "Updated",
+      "lastUpdated": "2026-02-20",
+      "controls": 11
+    },
+    {
+      "id": "SET002",
+      "title": "Approval Workflows",
+      "category": "workflow",
+      "description": "Define leave, expense and promotion approval chains.",
+      "owner": "HRBP Team",
+      "status": "Review",
+      "lastUpdated": "2026-02-24",
+      "controls": 9
+    },
+    {
+      "id": "SET003",
+      "title": "Role-Based Access",
+      "category": "security",
+      "description": "Configure roles, permission boundaries and privileged access.",
+      "owner": "IT Security",
+      "status": "Updated",
+      "lastUpdated": "2026-02-25",
+      "controls": 13
+    },
+    {
+      "id": "SET004",
+      "title": "Notification Rules",
+      "category": "notifications",
+      "description": "Manage email, Slack and in-app alerts by event type.",
+      "owner": "HR Systems",
+      "status": "Draft",
+      "lastUpdated": "2026-02-21",
+      "controls": 7
+    },
+    {
+      "id": "SET005",
+      "title": "Third-Party Integrations",
+      "category": "integrations",
+      "description": "Connect payroll, ATS, identity and collaboration tools.",
+      "owner": "Platform Team",
+      "status": "Updated",
+      "lastUpdated": "2026-02-18",
+      "controls": 10
+    },
+    {
+      "id": "SET006",
+      "title": "Document Retention",
+      "category": "security",
+      "description": "Set employee-document archival and deletion policies.",
+      "owner": "Compliance Office",
+      "status": "Review",
+      "lastUpdated": "2026-02-23",
+      "controls": 6
+    }
+  ],
+  "featureToggles": [
+    { "name": "Single Sign-On (SSO)", "enabled": true, "scope": "Global", "impact": "High" },
+    { "name": "MFA Enforcement", "enabled": true, "scope": "Admins", "impact": "High" },
+    { "name": "Auto Leave Balance Reset", "enabled": false, "scope": "Annual", "impact": "Medium" },
+    { "name": "Geo-Fenced Attendance", "enabled": true, "scope": "Field Teams", "impact": "Medium" },
+    { "name": "Automated Probation Alerts", "enabled": true, "scope": "HR", "impact": "Low" }
+  ],
+  "integrations": [
+    { "name": "Microsoft Entra ID", "type": "Identity", "status": "Connected", "sync": "Every 15 min" },
+    { "name": "Slack", "type": "Communication", "status": "Connected", "sync": "Real-time" },
+    { "name": "Workday Payroll", "type": "Payroll", "status": "Warning", "sync": "Every 1 hr" },
+    { "name": "Greenhouse ATS", "type": "Recruitment", "status": "Connected", "sync": "Every 30 min" },
+    { "name": "DocuSign", "type": "Documents", "status": "Disconnected", "sync": "Manual" }
+  ],
+  "auditTrail": [
+    { "actor": "Nisha Verma", "action": "Updated approval matrix for travel claims", "time": "2026-03-02 09:14 AM", "severity": "Info" },
+    { "actor": "System", "action": "Detected failed sync on Workday Payroll connector", "time": "2026-03-02 08:51 AM", "severity": "Warning" },
+    { "actor": "Ibrahim Khan", "action": "Enabled MFA for HR Admin role", "time": "2026-03-01 05:43 PM", "severity": "Info" },
+    { "actor": "System", "action": "Policy retention rule nearing limit threshold", "time": "2026-03-01 01:22 PM", "severity": "Critical" }
+  ],
+  "alerts": [
+    "Workday Payroll integration has intermittent sync failures.",
+    "Two policy modules are pending compliance review.",
+    "Document retention rule will expire in 5 days."
+  ]
+}

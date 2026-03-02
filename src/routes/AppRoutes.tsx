@@ -13,6 +13,8 @@ import DepartmentsPage from "../pages/departments/Departments";
 import ReportsPage from "../pages/reports/Reports";
 import SettingsPage from "../pages/settings/Settings";
 import CompliancePage from "../pages/compliance/Compliance";
+import AddEmployeePage from "../pages/employees/addemployee/AddEmployee";
+import ViewEmployeePage from "../pages/employees/viewemployee/ViewEmployee";
 
 const AppRoutes = () => {
   const isAuthenticated = localStorage.getItem("auth");
@@ -41,6 +43,8 @@ const AppRoutes = () => {
       >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/employees" element={<EmployeeList />} />
+        <Route path="/employees/addemployee" element={<AddEmployeePage />} />
+        <Route path="/employees/view/:employeeId" element={<ViewEmployeePage />} />
         <Route path="/attendance" element={<AttendancePage />} />
         <Route path="/leave" element={<LeaveManagementPage />} />
         <Route path="/recruitment" element={<RecruitmentPage />} />

@@ -1,8 +1,10 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from "react-router-dom";
 import employeesData from "./employeesData.json";
 
 
 export default function EmployeeList() {
+  const navigate = useNavigate();
   const [employees, setEmployees] = useState(employeesData.employees);
   const [deletedEmployees, setDeletedEmployees] = useState(employeesData.deletedEmployees);
   const [searchTerm, setSearchTerm] = useState('');
@@ -150,7 +152,10 @@ export default function EmployeeList() {
                 {showRecycleBin ? '← Back to Employees' : '🗑️ Recycle Bin'}
               </button>
               {!showRecycleBin && (
-                <button className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5">
+                <button
+                  onClick={() => navigate("/employees/addemployee")}
+                  className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5"
+                >
                   + Add New Employee
                 </button>
               )}
@@ -350,6 +355,11 @@ export default function EmployeeList() {
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-2">
                             <button
+                              onClick={() =>
+                                navigate(`/employees/view/${employee.id}`, {
+                                  state: { employee }
+                                })
+                              }
                               className="p-2 hover:bg-blue-50 rounded-lg transition-colors group"
                               title="View Details"
                             >
