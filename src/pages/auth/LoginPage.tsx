@@ -1,19 +1,38 @@
 import { MailIcon, LockIcon, FileTextIcon, EyeIcon, EyeOffIcon } from "../../components/icons/icons";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { authService } from "../../services/auth.service";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSignIn = (e: any) => {
+  const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Sign in clicked", { email, password });
-    localStorage.setItem("auth", "true");
 
-    navigate("/dashboard", { replace: true });
+    try {
+      setIsLoading(true);
+      setErrorMessage("");
+
+      const response = await authService.login({ email, password });
+
+      localStorage.setItem("auth", "true");
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+      }
+
+      navigate("/dashboard", { replace: true });
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Login failed. Please try again.";
+      setErrorMessage(message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -93,10 +112,15 @@ const LoginPage = () => {
 
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-lg font-medium hover:from-orange-600 hover:to-orange-700 transition-colors shadow-md"
             >
-              Sign In
+              {isLoading ? "Signing in..." : "Sign In"}
             </button>
+
+            {errorMessage ? (
+              <p className="text-sm text-red-500 text-center mt-3">{errorMessage}</p>
+            ) : null}
 
             <p className="text-sm text-center text-gray-500 mt-4">
               Don&apos;t have an account? &nbsp;
@@ -107,9 +131,7 @@ const LoginPage = () => {
           </form>
         </div>
 
-        <p className="text-xs text-gray-400 text-center mt-4">
-          Tip: Use any email/password to login (demo mode)
-        </p>
+        <p className="text-xs text-gray-400 text-center mt-4">Login is connected to API.</p>
       </div>
     </div>
   );
