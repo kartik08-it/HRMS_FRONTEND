@@ -1,7 +1,14 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from "react-router-dom";
 import employeesData from "./employeesData.json";
+import DynamicTable from "../../components/table/DynamicTable";
+import type {
+  DynamicTableAction,
+  DynamicTableColumn,
+} from "../../components/table/DynamicTable";
 
+type Employee = (typeof employeesData.employees)[number];
+type DeletedEmployee = (typeof employeesData.deletedEmployees)[number];
 
 export default function EmployeeList() {
   const navigate = useNavigate();
@@ -121,6 +128,183 @@ export default function EmployeeList() {
       setSelectedEmployees([...selectedEmployees, id]);
     }
   };
+
+  const employeeColumns: DynamicTableColumn<Employee>[] = [
+    {
+      id: "employee",
+      header: "Employee",
+      render: (employee) => (
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold shadow-md">
+            {employee.avatar}
+          </div>
+          <div>
+            <div className="font-bold text-gray-900">{employee.name}</div>
+            <div className="text-sm text-gray-500">{employee.email}</div>
+            <div className="text-xs text-gray-400 font-semibold">{employee.id}</div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "department",
+      header: "Department",
+      render: (employee) => (
+        <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-bold">
+          {employee.department}
+        </span>
+      ),
+    },
+    {
+      id: "position",
+      header: "Position",
+      render: (employee) => (
+        <div className="font-semibold text-gray-800">{employee.position}</div>
+      ),
+    },
+    {
+      id: "joinDate",
+      header: "Join Date",
+      render: (employee) => (
+        <div className="text-sm text-gray-600 font-medium">{employee.joinDate}</div>
+      ),
+    },
+    {
+      id: "status",
+      header: "Status",
+      render: (employee) => (
+        <>
+          <button
+            onClick={() => handleToggleStatus(employee.id)}
+            className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors ${
+              employee.status === 'active' ? 'bg-emerald-500' : 'bg-gray-300'
+            }`}
+          >
+            <span
+              className={`inline-block h-6 w-6 transform rounded-full bg-white shadow-lg transition-transform ${
+                employee.status === 'active' ? 'translate-x-9' : 'translate-x-1'
+              }`}
+            />
+          </button>
+          <div className="text-xs font-bold mt-1">
+            {employee.status === 'active' ? (
+              <span className="text-emerald-600">ACTIVE</span>
+            ) : (
+              <span className="text-gray-500">INACTIVE</span>
+            )}
+          </div>
+        </>
+      ),
+    },
+  ];
+
+  const employeeActions: DynamicTableAction<Employee>[] = [
+    {
+      id: "view",
+      title: "View Details",
+      onClick: (employee) =>
+        navigate(`/employees/view/${employee.id}`, {
+          state: { employee },
+        }),
+      className: "p-2 hover:bg-blue-50 rounded-lg transition-colors group",
+      icon: (
+        <svg className="w-5 h-5 text-blue-600 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      ),
+    },
+    {
+      id: "edit",
+      title: "Edit Employee",
+      onClick: () => {},
+      className: "p-2 hover:bg-amber-50 rounded-lg transition-colors group",
+      icon: (
+        <svg className="w-5 h-5 text-amber-600 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+      ),
+    },
+    {
+      id: "delete",
+      title: "Delete Employee",
+      onClick: (employee) => handleDelete(employee.id),
+      className: "p-2 hover:bg-rose-50 rounded-lg transition-colors group",
+      icon: (
+        <svg className="w-5 h-5 text-rose-600 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      ),
+    },
+    {
+      id: "more",
+      title: "More Options",
+      onClick: () => {},
+      className: "p-2 hover:bg-purple-50 rounded-lg transition-colors group",
+      icon: (
+        <svg className="w-5 h-5 text-purple-600 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+        </svg>
+      ),
+    },
+  ];
+
+  const recycleColumns: DynamicTableColumn<DeletedEmployee>[] = [
+    {
+      id: "employee",
+      header: "Employee",
+      render: (employee) => (
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center text-white font-bold shadow-md opacity-50">
+            {employee.avatar}
+          </div>
+          <div>
+            <div className="font-bold text-gray-900">{employee.name}</div>
+            <div className="text-sm text-gray-500">{employee.email}</div>
+            <div className="text-xs text-gray-400 font-semibold">{employee.id}</div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "department",
+      header: "Department",
+      render: (employee) => (
+        <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-bold">
+          {employee.department}
+        </span>
+      ),
+    },
+    {
+      id: "position",
+      header: "Position",
+      render: (employee) => (
+        <div className="font-semibold text-gray-600">{employee.position}</div>
+      ),
+    },
+    {
+      id: "deletedDate",
+      header: "Deleted Date",
+      render: (employee) => (
+        <div className="text-sm text-gray-600 font-medium">{employee.deletedDate}</div>
+      ),
+    },
+  ];
+
+  const recycleActions: DynamicTableAction<DeletedEmployee>[] = [
+    {
+      id: "restore",
+      onClick: (employee) => handleRestore(employee.id),
+      className: "px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-bold hover:shadow-lg transition-all text-sm",
+      label: "↺ Restore",
+    },
+    {
+      id: "deleteForever",
+      onClick: (employee) => handlePermanentDelete(employee.id),
+      className: "px-4 py-2 bg-gradient-to-r from-rose-500 to-red-600 text-white rounded-lg font-bold hover:shadow-lg transition-all text-sm",
+      label: "✕ Delete Forever",
+    },
+  ];
 
   return (
     <div className="p-8 min-h-screen">
@@ -265,146 +449,25 @@ export default function EmployeeList() {
           {!showRecycleBin ? (
             // Main Employee Table
             <>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gradient-to-r from-slate-50 to-gray-50 border-b-2 border-gray-200">
-                    <tr>
-                      <th className="px-6 py-4 text-left">
-                        <input
-                          type="checkbox"
-                          checked={selectedEmployees.length === currentEmployees.length && currentEmployees.length > 0}
-                          onChange={toggleSelectAll}
-                          className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        />
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                        Employee
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                        Department
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                        Position
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                        Join Date
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                        Status
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    {currentEmployees.map((employee) => (
-                      <tr key={employee.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="px-6 py-4">
-                          <input
-                            type="checkbox"
-                            checked={selectedEmployees.includes(employee.id)}
-                            onChange={() => toggleSelect(employee.id)}
-                            className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                          />
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold shadow-md">
-                              {employee.avatar}
-                            </div>
-                            <div>
-                              <div className="font-bold text-gray-900">{employee.name}</div>
-                              <div className="text-sm text-gray-500">{employee.email}</div>
-                              <div className="text-xs text-gray-400 font-semibold">{employee.id}</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-bold">
-                            {employee.department}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="font-semibold text-gray-800">{employee.position}</div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="text-sm text-gray-600 font-medium">{employee.joinDate}</div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <button
-                            onClick={() => handleToggleStatus(employee.id)}
-                            className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors ${
-                              employee.status === 'active' ? 'bg-emerald-500' : 'bg-gray-300'
-                            }`}
-                          >
-                            <span
-                              className={`inline-block h-6 w-6 transform rounded-full bg-white shadow-lg transition-transform ${
-                                employee.status === 'active' ? 'translate-x-9' : 'translate-x-1'
-                              }`}
-                            />
-                          </button>
-                          <div className="text-xs font-bold mt-1">
-                            {employee.status === 'active' ? (
-                              <span className="text-emerald-600">ACTIVE</span>
-                            ) : (
-                              <span className="text-gray-500">INACTIVE</span>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-2">
-                            <button
-                              onClick={() =>
-                                navigate(`/employees/view/${employee.id}`, {
-                                  state: { employee }
-                                })
-                              }
-                              className="p-2 hover:bg-blue-50 rounded-lg transition-colors group"
-                              title="View Details"
-                            >
-                              <svg className="w-5 h-5 text-blue-600 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                              </svg>
-                            </button>
-                            <button
-                              className="p-2 hover:bg-amber-50 rounded-lg transition-colors group"
-                              title="Edit Employee"
-                            >
-                              <svg className="w-5 h-5 text-amber-600 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                              </svg>
-                            </button>
-                            <button
-                              onClick={() => handleDelete(employee.id)}
-                              className="p-2 hover:bg-rose-50 rounded-lg transition-colors group"
-                              title="Delete Employee"
-                            >
-                              <svg className="w-5 h-5 text-rose-600 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                              </svg>
-                            </button>
-                            <button className="p-2 hover:bg-purple-50 rounded-lg transition-colors group" title="More Options">
-                              <svg className="w-5 h-5 text-purple-600 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                              </svg>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              {filteredEmployees.length === 0 && (
-                <div className="text-center py-16">
-                  <div className="text-6xl mb-4">🔍</div>
-                  <div className="text-2xl font-bold text-gray-900 mb-2">No employees found</div>
-                  <div className="text-gray-600">Try adjusting your search or filters</div>
-                </div>
-              )}
+              <DynamicTable
+                columns={employeeColumns}
+                data={currentEmployees}
+                rowKey={(employee) => employee.id}
+                actions={employeeActions}
+                selectable
+                selectedRowIds={selectedEmployees}
+                onToggleSelectAll={toggleSelectAll}
+                onToggleRow={toggleSelect}
+                emptyState={
+                  filteredEmployees.length === 0 ? (
+                    <div className="text-center py-16">
+                      <div className="text-6xl mb-4">🔍</div>
+                      <div className="text-2xl font-bold text-gray-900 mb-2">No employees found</div>
+                      <div className="text-gray-600">Try adjusting your search or filters</div>
+                    </div>
+                  ) : null
+                }
+              />
             </>
           ) : (
             // Recycle Bin Table
@@ -416,74 +479,12 @@ export default function EmployeeList() {
                   <div className="text-gray-600">Deleted employees will appear here</div>
                 </div>
               ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead className="bg-gradient-to-r from-slate-50 to-gray-50 border-b-2 border-gray-200">
-                      <tr>
-                        <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                          Employee
-                        </th>
-                        <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                          Department
-                        </th>
-                        <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                          Position
-                        </th>
-                        <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                          Deleted Date
-                        </th>
-                        <th className="px-6 py-4 text-left text-sm font-black text-gray-700 uppercase tracking-wider">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                      {deletedEmployees.map((employee) => (
-                        <tr key={employee.id} className="hover:bg-gray-50 transition-colors">
-                          <td className="px-6 py-4">
-                            <div className="flex items-center gap-4">
-                              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center text-white font-bold shadow-md opacity-50">
-                                {employee.avatar}
-                              </div>
-                              <div>
-                                <div className="font-bold text-gray-900">{employee.name}</div>
-                                <div className="text-sm text-gray-500">{employee.email}</div>
-                                <div className="text-xs text-gray-400 font-semibold">{employee.id}</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-bold">
-                              {employee.department}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4">
-                            <div className="font-semibold text-gray-600">{employee.position}</div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <div className="text-sm text-gray-600 font-medium">{employee.deletedDate}</div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <div className="flex items-center gap-2">
-                              <button
-                                onClick={() => handleRestore(employee.id)}
-                                className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-bold hover:shadow-lg transition-all text-sm"
-                              >
-                                ↺ Restore
-                              </button>
-                              <button
-                                onClick={() => handlePermanentDelete(employee.id)}
-                                className="px-4 py-2 bg-gradient-to-r from-rose-500 to-red-600 text-white rounded-lg font-bold hover:shadow-lg transition-all text-sm"
-                              >
-                                ✕ Delete Forever
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <DynamicTable
+                  columns={recycleColumns}
+                  data={deletedEmployees}
+                  rowKey={(employee) => employee.id}
+                  actions={recycleActions}
+                />
               )}
             </>
           )}
