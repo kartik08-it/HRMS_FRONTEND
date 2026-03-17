@@ -15,9 +15,11 @@ const request = async <TResponse, TBody = unknown>(
   method: HttpMethod,
   body?: TBody,
 ): Promise<TResponse> => {
+  const token = localStorage.getItem("token");
   const response = await fetch(buildUrl(endpoint), {
     method,
     headers: {
+      Authorization: token ? `Bearer ${token}` : "",
       "Content-Type": "application/json",
     },
     body: body ? JSON.stringify(body) : undefined,
@@ -30,9 +32,9 @@ const request = async <TResponse, TBody = unknown>(
   if (!response.ok) {
     const message =
       typeof payload === "object" &&
-      payload !== null &&
-      "message" in payload &&
-      typeof payload.message === "string"
+        payload !== null &&
+        "message" in payload &&
+        typeof payload.message === "string"
         ? payload.message
         : "Request failed";
 
