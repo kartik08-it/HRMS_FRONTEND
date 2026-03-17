@@ -1,4 +1,6 @@
 export const ENDPOINTS = {
   LOGIN: "users/login",
-} as const;
+  LOGOUT: "users/logout",
+  EMPLOYEES: "employees",
 
+} as const;

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { employeeService, type CreateEmployeePayload } from "../../../services/employee.service";
 
 type EmployeeForm = {
   firstName: string;
@@ -52,12 +53,17 @@ const initialForm: EmployeeForm = {
 export default function AddEmployeePage() {
   const PASSPORT_WIDTH = 350;
   const PASSPORT_HEIGHT = 450;
+  const DEFAULT_PASSWORD = "Test@123";
+  const DEFAULT_PROFILE_TYPE = "EMPLOYEE";
+  const DEFAULT_STATUS = "active";
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState<EmployeeForm>(initialForm);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [photoFileName, setPhotoFileName] = useState("");
   const [photoError, setPhotoError] = useState("");
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const photoInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (
@@ -67,10 +73,62 @@ export default function AddEmployeePage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert("Employee profile submitted successfully.");
-    navigate("/employees");
+    setSubmitError("");
+
+    const requiredFields: Array<keyof EmployeeForm> = [
+      "firstName",
+      "lastName",
+      "email",
+      "department",
+      "position",
+      "joinDate",
+      "salary",
+      "manager",
+    ];
+
+    const missing = requiredFields.filter((field) => !formData[field]);
+    if (missing.length > 0) {
+      setSubmitError("Please fill all required fields before submitting.");
+      return;
+    }
+
+    const payload: CreateEmployeePayload = {
+      username: `${formData.firstName} ${formData.lastName}`.trim(),
+      password: DEFAULT_PASSWORD,
+      email: formData.email,
+      joiningDate: `${formData.joinDate}T09:30:00`,
+      department: formData.department,
+      designation: formData.position,
+      salary: Number(formData.salary),
+      profileType: DEFAULT_PROFILE_TYPE,
+      fullName: `${formData.firstName} ${formData.lastName}`.trim(),
+      profileImage: photoPreview ?? "",
+      status: DEFAULT_STATUS,
+      manager: formData.manager,
+      employeeCode: formData.employeeId || undefined,
+      phone: formData.phone || undefined,
+      location: formData.location || undefined,
+    };
+
+    if (Number.isNaN(payload.salary)) {
+      setSubmitError("Salary must be a valid number.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      await employeeService.addEmployee(payload);
+      alert("Employee profile submitted successfully.");
+      navigate("/employees");
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error ? error.message : "Failed to submit employee.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const generatePassportPreview = (file: File): Promise<string> => {
@@ -175,6 +233,11 @@ export default function AddEmployeePage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
+          {submitError && (
+            <div className="rounded-2xl border border-rose-200 bg-rose-50 px-6 py-4 text-rose-700 font-semibold">
+              {submitError}
+            </div>
+          )}
           <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
             <h2 className="text-3xl font-black text-gray-900 mb-6">Personal Information</h2>
             <div className="mb-8 rounded-2xl border-2 border-dashed border-gray-200 p-5 bg-slate-50">
@@ -362,9 +425,10 @@ export default function AddEmployeePage() {
             </button>
             <button
               type="submit"
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold hover:shadow-xl transition-all"
+              disabled={isSubmitting}
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold hover:shadow-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Save Employee
+              {isSubmitting ? "Saving..." : "Save Employee"}
             </button>
           </div>
         </form>

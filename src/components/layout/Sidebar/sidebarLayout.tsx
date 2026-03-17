@@ -1,10 +1,24 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import DigitalClock from "../../clock/DigitalClock";
+import { authService } from "../../../services/auth.service";
 
 export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
     const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await authService.logout();
+
+            localStorage.removeItem("auth");
+            localStorage.removeItem("token");
+            navigate("/");
+        } catch (error) {
+            console.error("Logout failed", error);
+        }
+    };
+
     const menuItems = [
         { id: "employees", icon: "👥", label: "Employees", badge: "1,247" },
         { id: "attendance", icon: "📅", label: "Attendance", badge: null },
@@ -104,7 +118,7 @@ export default function Sidebar() {
 
                     {/* Logout */}
                     <div className="p-4 border-t border-white/10">
-                        <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-rose-400 transition-all duration-200">
+                        <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-rose-400 transition-all duration-200">
                             <span className="text-xl">🚪</span>
                             <span className="flex-1 text-left font-semibold text-sm">
                                 Logout

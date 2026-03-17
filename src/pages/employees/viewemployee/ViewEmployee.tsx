@@ -1,21 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import employeesData from "../employeesData.json";
-
-type EmployeeRecord = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  department: string;
-  position: string;
-  joinDate: string;
-  status: "active" | "inactive";
-  avatar: string;
-  salary: string;
-  manager: string;
-  location: string;
-};
+import { employeeService, type EmployeeRecord } from "../../../services/employee.service";
 
 function getBloodGroup(employeeId: string) {
   const groups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
@@ -32,26 +17,69 @@ export default function ViewEmployeePage() {
   const [showIdCard, setShowIdCard] = useState(false);
 
   const employeeFromState = (location.state as { employee?: EmployeeRecord } | null)?.employee;
-  const employee =
-    employeeFromState ??
-    employeesData.employees.find((item) => item.id === employeeId);
+  const [employee, setEmployee] = useState<EmployeeRecord | null>(employeeFromState ?? null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (employeeFromState || !employeeId) return;
+
+    const fetchEmployee = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await employeeService.getEmployees({
+          page: 0,
+          size: 10,
+          search: employeeId,
+        });
+        if (!isMounted) return;
+        const match =
+          response.content.find((item) => item.id === employeeId) ?? null;
+        setEmployee(match);
+      } catch (err) {
+        if (!isMounted) return;
+        setError(err instanceof Error ? err.message : "Failed to load employee");
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    };
+
+    fetchEmployee();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [employeeFromState, employeeId]);
 
   const profile = useMemo(() => {
     if (!employee) return null;
 
-    const fullName = employee.name;
+    const fullName = employee.name ?? "Unknown Employee";
     const [firstName, ...lastParts] = fullName.split(" ");
     const lastName = lastParts.join(" ");
 
     return {
       ...employee,
+      name: fullName,
+      email: employee.email ?? "--",
+      phone: employee.phone ?? "--",
+      department: employee.department ?? "--",
+      position: employee.position ?? "--",
+      joinDate: employee.joinDate ?? "--",
+      status: (employee.status ?? "inactive") as "active" | "inactive",
+      avatar: employee.avatar ?? "--",
+      salary: employee.salary ?? "--",
+      manager: employee.manager ?? "--",
+      location: employee.location ?? "--",
       firstName,
       lastName,
       bloodGroup: getBloodGroup(employee.id),
       emergencyContact: {
         name: "Primary Contact",
         relation: "Family",
-        phone: employee.phone
+        phone: employee.phone ?? "--"
       }
     };
   }, [employee]);
@@ -73,13 +101,27 @@ export default function ViewEmployeePage() {
     URL.revokeObjectURL(url);
   };
 
-  if (!profile) {
+  if (isLoading) {
+    return (
+      <div className="min-h-screen p-8 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50">
+        <div className="max-w-4xl mx-auto bg-white rounded-3xl p-10 shadow-xl border border-gray-100 text-center">
+          <div className="text-6xl mb-4">⏳</div>
+          <h1 className="text-3xl font-black text-gray-900 mb-2">Loading Employee</h1>
+          <p className="text-gray-600 mb-6">Fetching details for {employeeId}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !profile) {
     return (
       <div className="min-h-screen p-8 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50">
         <div className="max-w-4xl mx-auto bg-white rounded-3xl p-10 shadow-xl border border-gray-100 text-center">
           <div className="text-6xl mb-4">😕</div>
           <h1 className="text-3xl font-black text-gray-900 mb-2">Employee Not Found</h1>
-          <p className="text-gray-600 mb-6">No employee exists for ID: {employeeId}</p>
+          <p className="text-gray-600 mb-6">
+            {error ?? `No employee exists for ID: ${employeeId}`}
+          </p>
           <button
             onClick={() => navigate("/employees")}
             className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold"

@@ -7,6 +7,7 @@ export type LoginPayload = {
 };
 
 export type LoginResponse = {
+  accessToken: any;
   token?: string;
   message?: string;
 };
@@ -14,5 +15,9 @@ export type LoginResponse = {
 export const authService = {
   login: (payload: LoginPayload) =>
     http.post<LoginResponse, LoginPayload>(ENDPOINTS.LOGIN, payload),
-};
 
+  logout: () =>
+    http.post<{ message: string }, null>(ENDPOINTS.LOGOUT, null),
+
+
+};
