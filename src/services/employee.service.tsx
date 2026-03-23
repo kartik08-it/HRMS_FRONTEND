@@ -85,4 +85,10 @@ export const employeeService = {
 
   addEmployee: (payload: CreateEmployeePayload) =>
     http.post<EmployeeRecord, CreateEmployeePayload>(ENDPOINTS.EMPLOYEES, payload),
+
+  updateEmployee: (employeeId: string, payload: CreateEmployeePayload) =>
+    http.put<EmployeeRecord, CreateEmployeePayload>(
+      `${ENDPOINTS.EMPLOYEES}/${employeeId}`,
+      payload,
+    ),
 };
