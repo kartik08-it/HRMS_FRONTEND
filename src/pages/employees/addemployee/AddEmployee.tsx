@@ -1,6 +1,10 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { employeeService, type CreateEmployeePayload } from "../../../services/employee.service";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  employeeService,
+  type CreateEmployeePayload,
+  type EmployeeRecord,
+} from "../../../services/employee.service";
 
 type EmployeeForm = {
   firstName: string;
@@ -26,7 +30,7 @@ type EmployeeForm = {
   notes: string;
 };
 
-const initialForm: EmployeeForm = {
+const emptyForm: EmployeeForm = {
   firstName: "",
   lastName: "",
   email: "",
@@ -50,6 +54,29 @@ const initialForm: EmployeeForm = {
   notes: ""
 };
 
+const mapEmployeeToForm = (employee?: EmployeeRecord | null): EmployeeForm => {
+  if (!employee) return { ...emptyForm };
+
+  const nameParts = (employee.name ?? "").split(" ").filter(Boolean);
+  const firstName = nameParts[0] ?? "";
+  const lastName = nameParts.slice(1).join(" ");
+
+  return {
+    ...emptyForm,
+    firstName,
+    lastName,
+    email: employee.email ?? "",
+    phone: employee.phone ?? "",
+    employeeId: employee.employeeCode ?? String(employee.id ?? ""),
+    department: employee.department ?? "",
+    position: employee.position ?? "",
+    manager: employee.manager ?? "",
+    joinDate: employee.joinDate ? employee.joinDate.split("T")[0] : "",
+    location: employee.location ?? "",
+    salary: employee.salary != null ? String(employee.salary) : "",
+  };
+};
+
 export default function AddEmployeePage() {
   const PASSPORT_WIDTH = 350;
   const PASSPORT_HEIGHT = 450;
@@ -58,13 +85,62 @@ export default function AddEmployeePage() {
   const DEFAULT_STATUS = "active";
 
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<EmployeeForm>(initialForm);
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const location = useLocation();
+  const { employeeId } = useParams();
+  const employeeFromState = (location.state as { employee?: EmployeeRecord } | null)?.employee;
+  const isEditMode = Boolean(employeeFromState) || Boolean(employeeId);
+
+  const [employee, setEmployee] = useState<EmployeeRecord | null>(employeeFromState ?? null);
+  const [formData, setFormData] = useState<EmployeeForm>(() =>
+    mapEmployeeToForm(employeeFromState),
+  );
+  const [photoPreview, setPhotoPreview] = useState<string | null>(
+    employeeFromState?.profileImage ?? employeeFromState?.avatar ?? null,
+  );
   const [photoFileName, setPhotoFileName] = useState("");
   const [photoError, setPhotoError] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoadingEmployee, setIsLoadingEmployee] = useState(false);
+  const [loadError, setLoadError] = useState("");
   const photoInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (!employeeFromState) return;
+    setEmployee(employeeFromState);
+    setFormData(mapEmployeeToForm(employeeFromState));
+    setPhotoPreview(employeeFromState.profileImage ?? employeeFromState.avatar ?? null);
+  }, [employeeFromState]);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (!isEditMode || !employeeId) return;
+
+    const fetchEmployee = async () => {
+      setIsLoadingEmployee(true);
+      setLoadError("");
+      try {
+        const response = await employeeService.getEmployeeById(Number(employeeId));
+        if (!isMounted) return;
+        setEmployee(response);
+        setFormData(mapEmployeeToForm(response));
+        setPhotoPreview(response.profileImage ?? response.avatar ?? null);
+      } catch (error) {
+        if (!isMounted) return;
+        setLoadError(
+          error instanceof Error ? error.message : "Failed to load employee details.",
+        );
+      } finally {
+        if (isMounted) setIsLoadingEmployee(false);
+      }
+    };
+
+    fetchEmployee();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [employeeFromState, employeeId, isEditMode]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -94,10 +170,15 @@ export default function AddEmployeePage() {
       return;
     }
 
+    const initials = `${formData.firstName.trim().charAt(0)}${formData.lastName
+      .trim()
+      .charAt(0)}`.toUpperCase();
+
     const payload: CreateEmployeePayload = {
       username: `${formData.firstName} ${formData.lastName}`.trim(),
       password: DEFAULT_PASSWORD,
       email: formData.email,
+      phone: formData.phone || undefined,
       joiningDate: `${formData.joinDate}T09:30:00`,
       department: formData.department,
       designation: formData.position,
@@ -108,8 +189,8 @@ export default function AddEmployeePage() {
       status: DEFAULT_STATUS,
       manager: formData.manager,
       employeeCode: formData.employeeId || undefined,
-      phone: formData.phone || undefined,
       location: formData.location || undefined,
+      avatar: initials || undefined,
     };
 
     if (Number.isNaN(payload.salary)) {
@@ -119,8 +200,19 @@ export default function AddEmployeePage() {
 
     try {
       setIsSubmitting(true);
-      await employeeService.addEmployee(payload);
-      alert("Employee profile submitted successfully.");
+      if (isEditMode) {
+        const resolvedEmployeeId =
+          employeeFromState?.id ?? employee?.id ?? (employeeId ? Number(employeeId) : null);
+        if (!resolvedEmployeeId || Number.isNaN(resolvedEmployeeId)) {
+          setSubmitError("Employee details not found. Please open edit from the list.");
+          return;
+        }
+        await employeeService.updateEmployee(resolvedEmployeeId, payload);
+        alert("Employee profile updated successfully.");
+      } else {
+        await employeeService.addEmployee(payload);
+        alert("Employee profile submitted successfully.");
+      }
       navigate("/employees");
     } catch (error) {
       setSubmitError(
@@ -207,6 +299,15 @@ export default function AddEmployeePage() {
     }
   };
 
+  const handleResetForm = () => {
+    const resetEmployee = employee ?? employeeFromState ?? null;
+    setFormData(mapEmployeeToForm(resetEmployee));
+    setPhotoPreview(resetEmployee?.profileImage ?? resetEmployee?.avatar ?? null);
+    setPhotoFileName("");
+    setPhotoError("");
+    setSubmitError("");
+  };
+
   const inputClass =
     "w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-800 font-medium focus:border-blue-500 focus:outline-none";
   const labelClass = "text-sm font-bold text-gray-700 mb-2";
@@ -217,9 +318,13 @@ export default function AddEmployeePage() {
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 p-10 shadow-2xl">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <h1 className="text-5xl font-black text-white tracking-tight">Add New Employee</h1>
+              <h1 className="text-5xl font-black text-white tracking-tight">
+                {isEditMode ? "Edit Employee" : "Add New Employee"}
+              </h1>
               <p className="text-emerald-100 text-lg mt-2 font-medium">
-                Create a complete employee profile and onboarding record
+                {isEditMode
+                  ? "Update the employee profile and keep information current"
+                  : "Create a complete employee profile and onboarding record"}
               </p>
             </div>
             <button
@@ -233,6 +338,16 @@ export default function AddEmployeePage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
+          {isEditMode && isLoadingEmployee && (
+            <div className="rounded-2xl border border-blue-200 bg-blue-50 px-6 py-4 text-blue-800 font-semibold">
+              Loading employee details...
+            </div>
+          )}
+          {isEditMode && !isLoadingEmployee && loadError && (
+            <div className="rounded-2xl border border-rose-200 bg-rose-50 px-6 py-4 text-rose-700 font-semibold">
+              {loadError}
+            </div>
+          )}
           {submitError && (
             <div className="rounded-2xl border border-rose-200 bg-rose-50 px-6 py-4 text-rose-700 font-semibold">
               {submitError}
@@ -415,10 +530,7 @@ export default function AddEmployeePage() {
           <div className="flex flex-wrap items-center justify-end gap-3">
             <button
               type="button"
-              onClick={() => {
-                setFormData(initialForm);
-                handleRemovePhoto();
-              }}
+              onClick={handleResetForm}
               className="px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-700 font-bold hover:bg-gray-100 transition-colors"
             >
               Reset Form
@@ -428,7 +540,11 @@ export default function AddEmployeePage() {
               disabled={isSubmitting}
               className="px-8 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold hover:shadow-xl transition-all disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "Saving..." : "Save Employee"}
+              {isSubmitting
+                ? "Saving..."
+                : isEditMode
+                  ? "Update Employee"
+                  : "Save Employee"}
             </button>
           </div>
         </form>

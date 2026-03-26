@@ -1,18 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import DynamicTable from "../../components/table/DynamicTable";
-import type {
-  DynamicTableAction,
-  DynamicTableColumn,
-} from "../../components/table/DynamicTable";
-import { employeeService, type EmployeeRecord } from "../../services/employee.service";
-
-type PageMeta = {
-  totalPages: number;
-  totalElements: number;
-  pageNumber: number;
-  pageSize: number;
-};
+import type { DynamicTableAction, DynamicTableColumn } from "../../components/table/DynamicTable";
+import type { EmployeeRecord } from "../../services/employee.service";
+import { EmployeeTableSection } from "./components/EmployeeTableSection";
+import { useEmployeeList } from "./hooks/useEmployeeList";
 
 const getAvatarLabel = (employee: EmployeeRecord) => {
   if (employee.avatar && employee.avatar.trim()) return employee.avatar;
@@ -95,211 +86,19 @@ const EmployeeStats = ({ employees }: { employees: EmployeeRecord[] }) => {
   );
 };
 
-const EmployeeTable = ({
-  data,
-  columns,
-  actions,
-  isLoading,
-  error,
-}: {
-  data: EmployeeRecord[];
-  columns: DynamicTableColumn<EmployeeRecord>[];
-  actions: DynamicTableAction<EmployeeRecord>[];
-  isLoading: boolean;
-  error: string | null;
-}) => (
-  <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-    {error && (
-      <div className="px-6 py-4 bg-rose-50 text-rose-700 font-semibold border-b border-rose-100">
-        {error}
-      </div>
-    )}
-    {isLoading ? (
-      <div className="text-center py-16">
-        <div className="text-6xl mb-4">⏳</div>
-        <div className="text-2xl font-bold text-gray-900 mb-2">Loading employees...</div>
-        <div className="text-gray-600">Please wait a moment</div>
-      </div>
-    ) : (
-      <DynamicTable
-        columns={columns}
-        data={data}
-        rowKey={(employee) => employee.id}
-        actions={actions}
-        emptyState={
-          data.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="text-6xl mb-4">🔍</div>
-              <div className="text-2xl font-bold text-gray-900 mb-2">No employees found</div>
-              <div className="text-gray-600">Try adjusting your search</div>
-            </div>
-          ) : null
-        }
-      />
-    )}
-  </div>
-);
-
-const EmployeePagination = ({
-  pageMeta,
-  currentPage,
-  onPageChange,
-  onPageSizeChange,
-}: {
-  pageMeta: PageMeta;
-  currentPage: number;
-  onPageChange: (page: number) => void;
-  onPageSizeChange: (size: number) => void;
-}) => {
-  if (pageMeta.totalPages <= 1) return null;
-
-  return (
-    <div className="border-t border-gray-200 px-6 py-4 bg-gray-50">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-700 font-medium">
-            Showing page {currentPage} of {pageMeta.totalPages} ({pageMeta.totalElements} total)
-          </span>
-          <select
-            value={pageMeta.pageSize}
-            onChange={(e) => onPageSizeChange(Number(e.target.value))}
-            className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm font-semibold focus:outline-none focus:border-blue-500"
-          >
-            <option value={5}>5 per page</option>
-            <option value={10}>10 per page</option>
-            <option value={25}>25 per page</option>
-            <option value={50}>50 per page</option>
-          </select>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => onPageChange(1)}
-            disabled={currentPage === 1}
-            className="px-3 py-2 rounded-lg border-2 border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors font-bold text-sm"
-          >
-            ««
-          </button>
-          <button
-            onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="px-3 py-2 rounded-lg border-2 border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors font-bold text-sm"
-          >
-            ‹ Prev
-          </button>
-
-          <div className="flex gap-1">
-            {[...Array(pageMeta.totalPages)].map((_, idx) => {
-              const page = idx + 1;
-              if (
-                page === 1 ||
-                page === pageMeta.totalPages ||
-                (page >= currentPage - 1 && page <= currentPage + 1)
-              ) {
-                return (
-                  <button
-                    key={page}
-                    onClick={() => onPageChange(page)}
-                    className={`w-10 h-10 rounded-lg font-bold transition-all ${
-                      currentPage === page
-                        ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg"
-                        : "border-2 border-gray-300 hover:bg-gray-100 text-gray-700"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                );
-              }
-              if (page === currentPage - 2 || page === currentPage + 2) {
-                return (
-                  <span key={page} className="px-2 py-2 text-gray-400 font-bold">
-                    ...
-                  </span>
-                );
-              }
-              return null;
-            })}
-          </div>
-
-          <button
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === pageMeta.totalPages}
-            className="px-3 py-2 rounded-lg border-2 border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors font-bold text-sm"
-          >
-            Next ›
-          </button>
-          <button
-            onClick={() => onPageChange(pageMeta.totalPages)}
-            disabled={currentPage === pageMeta.totalPages}
-            className="px-3 py-2 rounded-lg border-2 border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors font-bold text-sm"
-          >
-            »»
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 export default function EmployeeList() {
   const navigate = useNavigate();
-  const [employees, setEmployees] = useState<EmployeeRecord[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [pageMeta, setPageMeta] = useState<PageMeta>({
-    totalPages: 0,
-    totalElements: 0,
-    pageNumber: 0,
-    pageSize: 10,
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, itemsPerPage]);
-
-  useEffect(() => {
-    let isMounted = true;
-    const fetchEmployees = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const response = await employeeService.getEmployees({
-          page: Math.max(currentPage - 1, 0),
-          size: itemsPerPage,
-          search: searchTerm,
-        });
-        if (!isMounted) return;
-        setEmployees(response.content ?? []);
-        setPageMeta({
-          totalPages: response.totalPages ?? 0,
-          totalElements: response.totalElements ?? 0,
-          pageNumber: response.number ?? 0,
-          pageSize: response.size ?? itemsPerPage,
-        });
-      } catch (err) {
-        if (!isMounted) return;
-        setError(err instanceof Error ? err.message : "Failed to load employees");
-        setEmployees([]);
-        setPageMeta({
-          totalPages: 0,
-          totalElements: 0,
-          pageNumber: 0,
-          pageSize: itemsPerPage,
-        });
-      } finally {
-        if (isMounted) setIsLoading(false);
-      }
-    };
-
-    fetchEmployees();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [currentPage, itemsPerPage, searchTerm]);
+  const {
+    employees,
+    searchTerm,
+    setSearchTerm,
+    currentPage,
+    setCurrentPage,
+    setItemsPerPage,
+    pageMeta,
+    isLoading,
+    error,
+  } = useEmployeeList();
 
   const employeeColumns: DynamicTableColumn<EmployeeRecord>[] = useMemo(
     () => [
@@ -314,7 +113,7 @@ export default function EmployeeList() {
             <div>
               <div className="font-bold text-gray-900">{employee.name ?? "--"}</div>
               <div className="text-sm text-gray-500">{employee.email ?? "--"}</div>
-              <div className="text-xs text-gray-400 font-semibold">{employee.id}</div>
+              <div className="text-xs text-gray-400 font-semibold">{employee.employeeCode}</div>
             </div>
           </div>
         ),
@@ -395,7 +194,10 @@ export default function EmployeeList() {
     {
       id: "edit",
       title: "Edit Employee",
-      onClick: () => {},
+      onClick: (employee) =>
+        navigate(`/employees/edit/${employee.id}`, {
+          state: { employee },
+        }),
       className: "p-2 hover:bg-amber-50 rounded-lg transition-colors group",
       icon: (
         <svg
@@ -427,15 +229,12 @@ export default function EmployeeList() {
 
         <EmployeeStats employees={employees} />
 
-        <EmployeeTable
+        <EmployeeTableSection
           data={employees}
           columns={employeeColumns}
           actions={employeeActions}
           isLoading={isLoading}
           error={error}
-        />
-
-        <EmployeePagination
           pageMeta={pageMeta}
           currentPage={currentPage}
           onPageChange={setCurrentPage}
