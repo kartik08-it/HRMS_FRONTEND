@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   employeeService,
@@ -67,7 +67,7 @@ const mapEmployeeToForm = (employee?: EmployeeRecord | null): EmployeeForm => {
     lastName,
     email: employee.email ?? "",
     phone: employee.phone ?? "",
-    employeeId: employee.id ?? "",
+    employeeId: employee.employeeCode ?? String(employee.id ?? ""),
     department: employee.department ?? "",
     position: employee.position ?? "",
     manager: employee.manager ?? "",
@@ -90,17 +90,57 @@ export default function AddEmployeePage() {
   const employeeFromState = (location.state as { employee?: EmployeeRecord } | null)?.employee;
   const isEditMode = Boolean(employeeFromState) || Boolean(employeeId);
 
+  const [employee, setEmployee] = useState<EmployeeRecord | null>(employeeFromState ?? null);
   const [formData, setFormData] = useState<EmployeeForm>(() =>
     mapEmployeeToForm(employeeFromState),
   );
   const [photoPreview, setPhotoPreview] = useState<string | null>(
-    employeeFromState?.avatar ?? null,
+    employeeFromState?.profileImage ?? employeeFromState?.avatar ?? null,
   );
   const [photoFileName, setPhotoFileName] = useState("");
   const [photoError, setPhotoError] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoadingEmployee, setIsLoadingEmployee] = useState(false);
+  const [loadError, setLoadError] = useState("");
   const photoInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (!employeeFromState) return;
+    setEmployee(employeeFromState);
+    setFormData(mapEmployeeToForm(employeeFromState));
+    setPhotoPreview(employeeFromState.profileImage ?? employeeFromState.avatar ?? null);
+  }, [employeeFromState]);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (!isEditMode || !employeeId) return;
+
+    const fetchEmployee = async () => {
+      setIsLoadingEmployee(true);
+      setLoadError("");
+      try {
+        const response = await employeeService.getEmployeeById(Number(employeeId));
+        if (!isMounted) return;
+        setEmployee(response);
+        setFormData(mapEmployeeToForm(response));
+        setPhotoPreview(response.profileImage ?? response.avatar ?? null);
+      } catch (error) {
+        if (!isMounted) return;
+        setLoadError(
+          error instanceof Error ? error.message : "Failed to load employee details.",
+        );
+      } finally {
+        if (isMounted) setIsLoadingEmployee(false);
+      }
+    };
+
+    fetchEmployee();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [employeeFromState, employeeId, isEditMode]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -130,10 +170,15 @@ export default function AddEmployeePage() {
       return;
     }
 
+    const initials = `${formData.firstName.trim().charAt(0)}${formData.lastName
+      .trim()
+      .charAt(0)}`.toUpperCase();
+
     const payload: CreateEmployeePayload = {
       username: `${formData.firstName} ${formData.lastName}`.trim(),
       password: DEFAULT_PASSWORD,
       email: formData.email,
+      phone: formData.phone || undefined,
       joiningDate: `${formData.joinDate}T09:30:00`,
       department: formData.department,
       designation: formData.position,
@@ -144,8 +189,8 @@ export default function AddEmployeePage() {
       status: DEFAULT_STATUS,
       manager: formData.manager,
       employeeCode: formData.employeeId || undefined,
-      phone: formData.phone || undefined,
       location: formData.location || undefined,
+      avatar: initials || undefined,
     };
 
     if (Number.isNaN(payload.salary)) {
@@ -155,12 +200,15 @@ export default function AddEmployeePage() {
 
     try {
       setIsSubmitting(true);
-      if (isEditMode && employeeFromState?.id) {
-        await employeeService.updateEmployee(employeeFromState.id, payload);
+      if (isEditMode) {
+        const resolvedEmployeeId =
+          employeeFromState?.id ?? employee?.id ?? (employeeId ? Number(employeeId) : null);
+        if (!resolvedEmployeeId || Number.isNaN(resolvedEmployeeId)) {
+          setSubmitError("Employee details not found. Please open edit from the list.");
+          return;
+        }
+        await employeeService.updateEmployee(resolvedEmployeeId, payload);
         alert("Employee profile updated successfully.");
-      } else if (isEditMode && !employeeFromState?.id) {
-        setSubmitError("Employee details not found. Please open edit from the list.");
-        return;
       } else {
         await employeeService.addEmployee(payload);
         alert("Employee profile submitted successfully.");
@@ -252,12 +300,9 @@ export default function AddEmployeePage() {
   };
 
   const handleResetForm = () => {
-    setFormData(mapEmployeeToForm(employeeFromState));
-    if (employeeFromState?.avatar) {
-      setPhotoPreview(employeeFromState.avatar);
-    } else {
-      setPhotoPreview(null);
-    }
+    const resetEmployee = employee ?? employeeFromState ?? null;
+    setFormData(mapEmployeeToForm(resetEmployee));
+    setPhotoPreview(resetEmployee?.profileImage ?? resetEmployee?.avatar ?? null);
     setPhotoFileName("");
     setPhotoError("");
     setSubmitError("");
@@ -293,9 +338,14 @@ export default function AddEmployeePage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
-          {isEditMode && !employeeFromState && (
-            <div className="rounded-2xl border border-amber-200 bg-amber-50 px-6 py-4 text-amber-800 font-semibold">
-              Employee details are missing. Please open edit from the employee list.
+          {isEditMode && isLoadingEmployee && (
+            <div className="rounded-2xl border border-blue-200 bg-blue-50 px-6 py-4 text-blue-800 font-semibold">
+              Loading employee details...
+            </div>
+          )}
+          {isEditMode && !isLoadingEmployee && loadError && (
+            <div className="rounded-2xl border border-rose-200 bg-rose-50 px-6 py-4 text-rose-700 font-semibold">
+              {loadError}
             </div>
           )}
           {submitError && (

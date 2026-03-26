@@ -113,7 +113,7 @@ export default function EmployeeList() {
             <div>
               <div className="font-bold text-gray-900">{employee.name ?? "--"}</div>
               <div className="text-sm text-gray-500">{employee.email ?? "--"}</div>
-              <div className="text-xs text-gray-400 font-semibold">{employee.id}</div>
+              <div className="text-xs text-gray-400 font-semibold">{employee.employeeCode}</div>
             </div>
           </div>
         ),

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { employeeService, type EmployeeRecord } from "../../../services/employee.service";
 
 export type PageMeta = {
@@ -13,6 +13,8 @@ export const useEmployeeList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const prevSearchTermRef = useRef(searchTerm);
+  const prevItemsPerPageRef = useRef(itemsPerPage);
   const [pageMeta, setPageMeta] = useState<PageMeta>({
     totalPages: 0,
     totalElements: 0,
@@ -23,10 +25,17 @@ export const useEmployeeList = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, itemsPerPage]);
+    const searchChanged = prevSearchTermRef.current !== searchTerm;
+    const sizeChanged = prevItemsPerPageRef.current !== itemsPerPage;
 
-  useEffect(() => {
+    if ((searchChanged || sizeChanged) && currentPage !== 1) {
+      setCurrentPage(1);
+      return;
+    }
+
+    prevSearchTermRef.current = searchTerm;
+    prevItemsPerPageRef.current = itemsPerPage;
+
     let isMounted = true;
 
     const fetchEmployees = async () => {
