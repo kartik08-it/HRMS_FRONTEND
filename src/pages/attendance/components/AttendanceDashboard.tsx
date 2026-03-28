@@ -1,4 +1,3 @@
-import React from "react";
 import type { AttendanceDashboardData } from "../../../services/attendance.service";
 
 const getStatusColor = (status: string) => {
