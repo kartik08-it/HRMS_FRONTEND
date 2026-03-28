@@ -52,10 +52,10 @@ const EmployeeSearchBar = ({
         <div className="relative">
           <input
             type="text"
-            placeholder="Search by name, email, ID, department..."
+            placeholder="Search by name"
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className=" bg-white w-full px-5 py-3 pl-12 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none font-medium"
+            className=" bg-white w-full text-gray-700 px-5 py-3 pl-12 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none font-medium"
           />
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">🔍</span>
         </div>
