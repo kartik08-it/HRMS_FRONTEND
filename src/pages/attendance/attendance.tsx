@@ -58,8 +58,17 @@ export default function AttendancePage() {
       setIsLoading(true);
       setError(null);
       try {
+        // Determine range parameter based on viewMode
+        let rangeParam: string | undefined = undefined;
+        if (viewMode === 'weekly') {
+          rangeParam = 'week';
+        } else if (viewMode === 'monthly') {
+          rangeParam = 'month';
+        }
+
         const data = await attendanceService.getDashboard({
           date: selectedDate || undefined,
+          range: rangeParam,
         });
         if (isMounted) {
           setAttendanceData(normalizeDashboard(data));
@@ -81,7 +90,7 @@ export default function AttendancePage() {
     return () => {
       isMounted = false;
     };
-  }, [selectedDate]);
+  }, [selectedDate, viewMode]);
 
   const filteredData = useMemo(() => {
     if (filterDepartment === "all") return attendanceData;

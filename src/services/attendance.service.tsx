@@ -58,15 +58,18 @@ export type AttendanceDashboardData = {
   weeklyTrend: AttendanceWeeklyTrend[];
 };
 
-const buildDashboardQuery = (params?: { date?: string }) => {
+const buildDashboardQuery = (params?: { date?: string; range?: string }) => {
   if (!params?.date) return "";
   const query = new URLSearchParams();
   query.set("date", params.date);
+  if (params.range) {
+    query.set("range", params.range);
+  }
   return query.toString();
 };
 
 export const attendanceService = {
-  getDashboard: (params?: { date?: string }) => {
+  getDashboard: (params?: { date?: string; range?: string }) => {
     const query = buildDashboardQuery(params);
     const endpoint = query
       ? `${ENDPOINTS.ATTENDANCE_DASHBOARD}?${query}`

@@ -14,6 +14,7 @@ const request = async <TResponse, TBody = unknown>(
   endpoint: string,
   method: HttpMethod,
   body?: TBody,
+  
 ): Promise<TResponse> => {
   const token = localStorage.getItem("token");
   const response = await fetch(buildUrl(endpoint), {
@@ -28,6 +29,22 @@ const request = async <TResponse, TBody = unknown>(
   const contentType = response.headers.get("content-type") || "";
   const isJson = contentType.includes("application/json");
   const payload = isJson ? await response.json() : await response.text();
+
+  // Check for 401 Unauthorized status
+  if (response.status === 401) {
+    // Clear authentication from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("auth");
+
+    // Show dialog to user
+    alert("Your session has expired. Please login again.");
+
+    // Redirect to login page
+    window.location.href = "/auth";
+
+    // Prevent further execution
+    throw new Error("Unauthorized. Please login again.");
+  }
 
   if (!response.ok) {
     const message =

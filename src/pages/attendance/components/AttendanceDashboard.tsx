@@ -109,7 +109,30 @@ export default function AttendanceDashboard({
             {['today', 'weekly', 'monthly'].map((mode) => (
               <button
                 key={mode}
-                onClick={() => onViewModeChange(mode)}
+                onClick={() => {
+                  // Build query parameters based on mode
+                  const params = new URLSearchParams();
+                  
+                  if (mode === 'today') {
+                    // For today, only pass the date (today's date)
+                    const today = new Date().toISOString().split('T')[0];
+                    params.set('date', today);
+                  } else if (mode === 'weekly') {
+                    // For weekly, pass date and range=week
+                    params.set('date', selectedDate);
+                    params.set('range', 'week');
+                  } else if (mode === 'monthly') {
+                    // For monthly, pass date and range=month
+                    params.set('date', selectedDate);
+                    params.set('range', 'month');
+                  }
+                  
+                  // Update URL with query parameters
+                  window.history.pushState({}, '', `?${params.toString()}`);
+                  
+                  // Call the view mode change handler
+                  onViewModeChange(mode);
+                }}
                 className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${viewMode === mode
                     ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md'
                     : 'text-gray-600 hover:bg-gray-100'
